@@ -1,0 +1,39 @@
+/* Основные стили */
+body {
+    background: #050507;
+    color: #cbd5e1;
+    font-family: 'Consolas', monospace;
+}
+
+/* Эффект стекла */
+.glass {
+    background: rgba(15, 15, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Кнопка Телеграма */
+.btn-tg {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #06b6d4;
+    color: #06b6d4;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.btn-tg:hover {
+    background: #06b6d4;
+    color: #000;
+    box-shadow: 0 0 15px #06b6d4;
+}
+
+/* Ховер эффект для карточек */
+.group:hover .glass {
+    border-color: #444;
+    background: #0f0f0f;
+}
