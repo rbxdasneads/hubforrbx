@@ -35,18 +35,16 @@
             font-weight: 700;
             color: #94a3b8;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             border: 1px solid transparent;
             white-space: nowrap;
+            background: transparent;
         }
-        .nav-btn.active {
-            background: rgba(37, 99, 235, 0.2);
+        .nav-btn:hover {
             color: #ffffff;
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
-        }
-        .nav-btn:hover:not(.active) {
-            color: #ffffff;
+            background: rgba(37, 99, 235, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
         }
         .logo-text {
             font-size: 36px;
