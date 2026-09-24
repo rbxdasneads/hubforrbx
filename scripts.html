@@ -175,13 +175,16 @@ function handleImageError(img) {
     img.src = '/images/solara.webp';
 }
 
-// Форматирование числа просмотров
+// Форматирование числа просмотров (M, k, точно)
 function formatViews(views) {
-    if (!views) return '0';
-    if (views >= 1000) {
-        return (views / 1000).toFixed(1) + 'k';
+    const num = Number(views) || 0;
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
     }
-    return views;
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'k';
+    }
+    return num.toString();
 }
 
 // Отрисовка карточек с учётом выбранной сортировки
@@ -198,9 +201,9 @@ function renderScripts() {
     let displayScripts = [...allFetchedScripts];
 
     if (currentSort === 'views-desc') {
-        displayScripts.sort((a, b) => (b.views || 0) - (a.views || 0));
+        displayScripts.sort((a, b) => (Number(b.views) || 0) - (Number(a.views) || 0));
     } else if (currentSort === 'views-asc') {
-        displayScripts.sort((a, b) => (a.views || 0) - (b.views || 0));
+        displayScripts.sort((a, b) => (Number(a.views) || 0) - (Number(b.views) || 0));
     }
 
     displayScripts.forEach(item => {
