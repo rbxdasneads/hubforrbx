@@ -14,49 +14,73 @@
     <link rel="stylesheet" href="/output.css">
     
     <style>
-        /* Современные стеклянные карточки */
+        /* Карточки скриптов */
         .glass-card { 
             background: #0d0e12 !important; 
-            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
             border-radius: 16px;
-            padding: 22px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            padding: 20px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
             position: relative;
-            overflow: hidden;
         }
         .glass-card:hover {
-            background: #12141c !important; 
-            border-color: rgba(59, 130, 246, 0.4) !important; 
-            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2) !important; 
-            transform: translateY(-4px);
+            background: #11131a !important; 
+            border-color: rgba(59, 130, 246, 0.35) !important; 
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15) !important; 
+            transform: translateY(-3px);
         }
 
-        /* Поля ввода и селекторы */
-        .input-glow {
+        /* Поле ввода поиска */
+        .search-input {
             background: #0d0e12;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.25s ease;
+            color: #ffffff;
+            transition: all 0.2s ease;
         }
-        .input-glow:focus {
+        .search-input:focus {
             border-color: rgba(59, 130, 246, 0.6);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.12);
             outline: none;
         }
 
-        /* Кнопка "Copy Script" */
+        /* Выпадающий список сортировки */
+        .sort-select {
+            background-color: #0d0e12;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #d1d5db;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: all 0.2s ease;
+        }
+        .sort-select:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+        }
+        .sort-select:focus {
+            border-color: rgba(59, 130, 246, 0.6);
+            outline: none;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.12);
+        }
+        .sort-select option {
+            background-color: #0d0e12;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        /* Кнопка Copy Script */
         .btn-copy {
             background: rgba(255, 255, 255, 0.03) !important;
             color: #a1a1aa !important;
             font-weight: 700 !important;
             font-size: 0.75rem !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.06em !important;
-            padding: 11px 16px !important;
+            letter-spacing: 0.05em !important;
+            padding: 10px 14px !important;
             border-radius: 10px !important;
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
             cursor: pointer !important;
             width: 100% !important;
-            transition: all 0.25s ease !important;
+            transition: all 0.2s ease !important;
             display: block !important;
             text-align: center !important;
         }
@@ -75,9 +99,9 @@
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
         }
 
-        /* Кнопка "Load More" */
+        /* Кнопка Load More */
         .btn-load-more {
-            background: #12141c;
+            background: #0d0e12;
             border: 1px solid rgba(59, 130, 246, 0.3);
             color: #fff;
             padding: 12px 32px;
@@ -94,12 +118,6 @@
             border-color: #3b82f6;
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
             transform: translateY(-2px);
-        }
-
-        /* Кастомный карет / опции селектора */
-        select option {
-            background-color: #0d0e12;
-            color: #ffffff;
         }
     </style>
 </head>
@@ -129,25 +147,31 @@
         </div>
     </header>
 
-    <!-- Заголовок и Блок Поиска/Сортировки -->
-    <div class="text-center mb-10 max-w-2xl mx-auto">
+    <!-- Заголовок страницы -->
+    <div class="text-center mb-8">
         <h2 class="text-3xl font-black text-white uppercase tracking-tight">Latest Roblox Scripts</h2>
-        <p class="text-sm text-gray-500 mt-2 mb-8">Auto-updated Roblox scripts & working hubs</p>
+        <p class="text-sm text-gray-500 mt-1">Auto-updated Roblox scripts & working hubs</p>
+    </div>
 
-        <!-- Объединенная Панель Управления -->
-        <div class="flex flex-col sm:flex-row gap-3 p-2 rounded-2xl bg-[#090a0d] border border-gray-800/80 shadow-2xl">
-            <div class="relative flex-1">
-                <input type="text" id="search-input" placeholder="Search script or game name..." 
-                       class="w-full input-glow rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500">
-            </div>
+    <!-- Панель Поиска и Сортировки -->
+    <div class="flex flex-col sm:flex-row gap-3 max-w-3xl mx-auto mb-10">
+        <!-- Поле Поиска -->
+        <div class="relative flex-1">
+            <input type="text" id="search-input" placeholder="Search script or game name..." 
+                   class="w-full search-input rounded-xl px-4 py-3 text-sm placeholder-gray-500">
+        </div>
 
-            <div class="w-full sm:w-48">
-                <select id="sort-select" 
-                        class="w-full input-glow rounded-xl px-3 py-2.5 text-sm text-white cursor-pointer">
-                    <option value="latest">Sort: Latest</option>
-                    <option value="views-desc">Sort: Most Viewed</option>
-                    <option value="views-asc">Sort: Least Viewed</option>
-                </select>
+        <!-- Кастомный Выпадающий Список Сортировки -->
+        <div class="relative w-full sm:w-52">
+            <select id="sort-select" class="w-full sort-select rounded-xl px-4 py-3 text-sm cursor-pointer pr-10">
+                <option value="latest">Sort: Latest</option>
+                <option value="views-desc">Sort: Most Viewed</option>
+                <option value="views-asc">Sort: Least Viewed</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-gray-400">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                </svg>
             </div>
         </div>
     </div>
@@ -191,36 +215,43 @@ function handleImageError(img) {
     img.src = '/images/solara.webp';
 }
 
-// Форматирование чисел просмотров
+// Форматирование просмотров
 function formatViews(views) {
     const num = Number(views) || 0;
-    if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + 'M';
-    }
-    if (num >= 1000) {
-        return (num / 1000).toFixed(1) + 'k';
-    }
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
     return num.toString();
 }
 
-// Умная генерация описания, чтобы предотвратить дубли
+// Уникальное динамическое описание для каждого скрипта
 function getScriptDescription(item) {
-    if (item.features && typeof item.features === 'string' && item.features.trim().length > 5) {
-        return item.features;
+    // 1. Проверяем, есть ли реальное описание от автора в API
+    if (item.features && typeof item.features === 'string' && item.features.trim().length > 3) {
+        return item.features.trim();
     }
     if (Array.isArray(item.features) && item.features.length > 0) {
         return item.features.join(', ');
     }
-    if (item.description && typeof item.description === 'string' && item.description.trim().length > 5) {
-        return item.description;
+    if (item.description && typeof item.description === 'string' && item.description.trim().length > 3) {
+        return item.description.trim();
     }
 
+    // 2. Если авторы ScriptBlox ничего не заполнили (что происходит часто), 
+    // формируем индивидуальное описание на основе названия конкретного скрипта и игры
+    const rawTitle = item.title || 'Roblox Script';
     const gameName = item.game?.name || 'Roblox';
-    const isKeyless = item.key === false ? 'keyless' : 'feature-packed';
-    return `Working ${isKeyless} script hub for ${gameName} with auto-farm, custom GUI, and player enhancements.`;
+    
+    // Очищаем заголовок отлишних спецсимволов для чистой читаемости
+    const cleanTitle = rawTitle.replace(/\[.*?\]/g, '').replace(/\|/g, '').trim();
+
+    if (item.key === false) {
+        return `Free keyless script for ${gameName}. Features ${cleanTitle || 'custom GUI'} with fast execution and instant keyless access.`;
+    }
+    
+    return `${cleanTitle || 'Script Hub'} designed for ${gameName}. Updated script features and player enhancements for execution.`;
 }
 
-// Отрисовка карточек с учётом выбранной сортировки
+// Отрисовка карточек
 function renderScripts() {
     const container = document.getElementById('scripts-container');
     container.innerHTML = '';
@@ -295,7 +326,7 @@ function renderScripts() {
     });
 }
 
-// Получение данных с API
+// Загрузка данных с API
 async function fetchScripts(query = '', page = 1, append = false) {
     const container = document.getElementById('scripts-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
@@ -356,7 +387,7 @@ function copyToClipboard(btnElement, encodedScript) {
     });
 }
 
-// Загрузка следующей страницы
+// Загрузить еще
 function loadMoreScripts() {
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.innerText = 'Loading...';
@@ -364,7 +395,7 @@ function loadMoreScripts() {
     fetchScripts(currentQuery, currentPage, true);
 }
 
-// Обработчик Поиска
+// Поиск
 document.getElementById('search-input').addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -374,7 +405,7 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     }, 400);
 });
 
-// Обработчик Сортировки
+// Сортировка
 document.getElementById('sort-select').addEventListener('change', (e) => {
     currentSort = e.target.value;
     renderScripts();
