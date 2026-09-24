@@ -18,27 +18,27 @@
         </a>
     </div>
 
-    <div class="max-w-4xl mx-auto">
-        <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
-            <div class="flex items-center gap-6">
-                <nav class="flex gap-3">
-                    <a href="/" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">Exploits</a>
-                    <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">Scripts</a>
-                </nav>
+    <header class="header-nav">
+        <div style="display: flex; align-items: center;">
+            <div class="nav-toggle">
+                <a href="/" class="nav-btn">Exploits</a>
+                <a href="/scripts.html" class="nav-btn">Scripts</a>
             </div>
+        </div>
 
-            <div class="text-center">
-                <h1 class="text-5xl font-black uppercase tracking-tighter italic">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]">HUB</span>
-                </h1>
-            </div>
+        <div style="text-align: center;">
+            <a href="/" style="text-decoration: none;">
+                <h1 class="logo-text">RBX<span>HUB</span></h1>
+            </a>
+        </div>
 
-            <div class="flex justify-end">
-                <div class="flex items-center gap-2 text-xs font-bold text-green-500 bg-green-500/5 px-3 py-1.5 rounded-full border border-green-500/20">
-                    <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>STATUS: WORKING
-                </div>
+        <div style="display: flex; justify-content: flex-end;">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                STATUS: WORKING
             </div>
-        </header>
+        </div>
+    </header>
 
         <div class="max-w-4xl mx-auto space-y-6"> 
             <!-- Блок с кнопкой скачивания -->
