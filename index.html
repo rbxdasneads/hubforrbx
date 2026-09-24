@@ -4,29 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Основные SEO теги -->
     <title>RBXHub | Free Roblox Executors, Scripts & Exploits</title>
     <meta name="description" content="Download Roblox exploits, executors, and scripts for roblox free. A trusted community hub for Roblox game enhancement tools, updates, and more.">
     <meta name="theme-color" content="#3b82f6">
     <link rel="canonical" href="https://rbxhub.org/">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rbxhub.org/">
     <meta property="og:title" content="RBXHub | Free Roblox Executors & Scripts">
     <meta property="og:description" content="A trusted community hub for Roblox game enhancement tools, scripts, updates, and more. Free and secure downloads.">
     <meta property="og:image" content="https://rbxhub.org/favicon-v2.png">
 
-    <!-- Иконки сайта -->
     <link rel="icon" type="image/png" href="/favicon-v2.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon-v2.png">
 
-    <!-- Стили -->
     <link rel="stylesheet" href="/output.css">
     <style>
-        /* Стили карточек */
+        /* Карточки */
         .glass { 
             background: #0f0f14; 
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -41,7 +37,7 @@
             transform: translateY(-6px);
         }
 
-        /* Фиксация размеров иконок */
+        /* Фиксация иконок */
         .card-icon {
             width: 56px !important;
             height: 56px !important;
@@ -55,7 +51,7 @@
             flex-shrink: 0;
         }
 
-        /* Дизайнерский баннер скриптов */
+        /* Баннер */
         .banner-box {
             background: linear-gradient(135deg, #0b0d14 0%, #111524 50%, #0b0d14 100%);
             border: 1px solid rgba(59, 130, 246, 0.25);
@@ -69,18 +65,8 @@
             position: relative;
             overflow: hidden;
         }
-        .banner-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
 
-        /* Кастомная аккуратная кнопка */
+        /* Кнопка */
         .btn-banner {
             display: inline-flex;
             align-items: center;
@@ -99,22 +85,16 @@
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
             white-space: nowrap;
             text-decoration: none;
-            z-index: 2;
         }
         .btn-banner:hover {
             background: #3b82f6;
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
             transform: translateY(-2px);
         }
-        .btn-banner:active {
-            transform: translateY(0);
-        }
-        .btn-banner .arrow {
-            transition: transform 0.2s ease;
-        }
         .btn-banner:hover .arrow {
             transform: translateX(4px);
         }
+        .arrow { transition: transform 0.2s ease; }
     </style>
 </head>
 
@@ -124,25 +104,28 @@
     <!-- Шапка сайта -->
     <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
         <div class="flex items-center gap-6">
-            <nav class="flex gap-3">
-                <a href="/" class="px-5 py-2 rounded-lg border border-blue-500 bg-blue-600/20 text-white font-bold shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all">
+            <nav class="flex gap-2 bg-[#0f0f14] p-1.5 rounded-xl border border-white/5">
+                <a href="/" class="px-5 py-2 rounded-lg bg-blue-600/20 border border-blue-500/50 text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all">
                     Exploits
                 </a>
-                <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">
+                <a href="/scripts.html" class="px-5 py-2 rounded-lg text-gray-400 font-bold text-sm hover:text-white transition-all">
                     Scripts
                 </a>
             </nav>
         </div>
 
         <div class="text-center">
-            <h1 class="text-5xl font-black uppercase tracking-tighter italic">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]">HUB</span>
-            </h1>
+            <a href="/" class="inline-block">
+                <h1 class="text-4xl font-black uppercase tracking-tighter italic">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">HUB</span>
+                </h1>
+            </a>
         </div>
 
         <div class="flex justify-end">
-            <div class="flex items-center gap-2 text-xs font-bold text-green-400 bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">
-                <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>AUTO UPDATING
+            <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20 tracking-wider">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                STATUS: ONLINE
             </div>
         </div>
     </header>
@@ -212,7 +195,7 @@
         </a>
     </div>
 
-    <!-- Обновленный баннер скриптов -->
+    <!-- Баннер скриптов -->
     <div class="banner-box flex-col md:flex-row">
         <div>
             <span class="inline-block text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-500/10 px-2.5 py-1 rounded-md border border-blue-500/20 mb-2">
@@ -223,7 +206,7 @@
         </div>
         
         <a href="/scripts.html" class="btn-banner">
-            <span>Scripts</span>
+            <span>Get Scripts</span>
             <span class="arrow">→</span>
         </a>
     </div>
@@ -263,26 +246,6 @@
                 </div>
                 <p class="text-sm text-gray-400">Our favorite file (de)compressor which supports nearly every file format.</p>
                 <div class="flex items-center gap-2 mt-6 text-gray-500"><img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows" class="tech-icon"> <span class="text-xs">2.2k+</span></div>
-            </div>
-        </a>
-        <a href="extremeinjector.html" class="block group">
-            <div class="glass h-full">
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="/images/extremeinjector.png" alt="Extreme Injector" class="card-icon">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight">Extreme Injector</h2>
-                </div>
-                <p class="text-sm text-gray-400">Typically used to inject dll based exploits into programs.</p>
-                <div class="flex items-center gap-2 mt-6 text-gray-500"><img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows" class="tech-icon"> <span class="text-xs">7.9k+</span></div>
-            </div>
-        </a>
-        <a href="winrar.html" class="block group">
-            <div class="glass h-full">
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="/images/winrar.png" alt="WinRar" class="card-icon">
-                    <h2 class="text-xl font-black text-white uppercase tracking-tight">WinRar</h2>
-                </div>
-                <p class="text-sm text-gray-400">This is used to open archived files such as .rar and .zip files.</p>
-                <div class="flex items-center gap-2 mt-6 text-gray-500"><img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows" class="tech-icon"> <span class="text-xs">1.9k+</span></div>
             </div>
         </a>
     </div>
