@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/output.css">
     
     <style>
-        /* Базовый сброс */
         * {
             box-sizing: border-box;
         }
@@ -97,20 +96,19 @@
             box-shadow: 0 0 8px #34d399;
         }
 
-        /* Блок поиска и сортировки в одну строчку */
+        /* Панель управления (поиск + фильтры) */
         .controls-wrapper {
             display: flex;
             gap: 12px;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto 36px auto;
             align-items: center;
+            flex-wrap: wrap;
         }
-
-        /* Поле поиска */
         .search-box-container {
             position: relative;
             flex: 1;
-            min-width: 0;
+            min-width: 240px;
         }
         .search-icon {
             position: absolute;
@@ -140,13 +138,13 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.1) !important;
         }
 
-        /* Кнопка сортировки */
-        .sort-dropdown-container {
+        /* Выпадающие меню (сортировка и фильтр) */
+        .dropdown-container {
             position: relative;
-            width: 200px;
+            width: 180px;
             flex-shrink: 0;
         }
-        .sort-btn {
+        .dropdown-btn {
             width: 100% !important;
             height: 48px !important;
             background: #0b0d14 !important;
@@ -162,14 +160,12 @@
             justify-content: space-between !important;
             transition: all 0.2s ease !important;
         }
-        .sort-btn:hover {
+        .dropdown-btn:hover {
             border-color: rgba(59, 130, 246, 0.3) !important;
             color: #ffffff !important;
             background: #0e111a !important;
         }
-
-        /* Выпадающее меню сортировки */
-        .sort-menu-dropdown {
+        .dropdown-menu {
             position: absolute;
             top: 100%;
             right: 0;
@@ -187,12 +183,12 @@
             transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
             backdrop-filter: blur(12px);
         }
-        .sort-menu-dropdown.is-open {
+        .dropdown-menu.is-open {
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: auto;
         }
-        .sort-option {
+        .dropdown-option {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -204,11 +200,11 @@
             cursor: pointer;
             transition: all 0.15s ease;
         }
-        .sort-option:hover {
+        .dropdown-option:hover {
             background: rgba(59, 130, 246, 0.12);
             color: #ffffff;
         }
-        .sort-option.active-option {
+        .dropdown-option.active-option {
             background: rgba(59, 130, 246, 0.18);
             color: #ffffff;
         }
@@ -297,6 +293,77 @@
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
             transform: translateY(-2px);
         }
+
+        /* Скелетон загрузки */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        .skeleton {
+            background: #11141d;
+            border: 1px solid #181c28;
+            border-radius: 16px;
+            padding: 18px;
+            animation: pulse-glow 1.5s infinite ease-in-out;
+            height: 190px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .skeleton-line {
+            background: #1a1e2c;
+            border-radius: 6px;
+        }
+
+        /* Кнопка скролла наверх */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            background: #0b0d14;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #back-to-top:hover {
+            background: #2563eb;
+            color: #fff;
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Адаптивность для мобилок */
+        @media (max-width: 768px) {
+            .header-nav {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                text-align: center;
+                justify-items: center;
+            }
+            .controls-wrapper {
+                flex-direction: column;
+            }
+            .dropdown-container {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -326,7 +393,7 @@
         </div>
     </header>
 
-    <!-- Панель Поиска и Сортировки -->
+    <!-- Панель Поиска, Фильтра и Сортировки -->
     <div class="controls-wrapper">
         <div class="search-box-container">
             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -335,8 +402,38 @@
             <input type="text" id="search-input" placeholder="Search script or game name..." class="search-input">
         </div>
 
-        <div class="sort-dropdown-container" id="custom-sort-dropdown">
-            <button type="button" id="sort-dropdown-btn" onclick="toggleSortDropdown()" class="sort-btn">
+        <!-- Фильтр типов (Keyless / Key System) -->
+        <div class="dropdown-container" id="custom-filter-dropdown">
+            <button type="button" id="filter-dropdown-btn" onclick="toggleDropdown('filter')" class="dropdown-btn">
+                <span id="filter-selected-text" class="truncate flex items-center gap-2">
+                    <svg style="width:14px; height:14px;" class="text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    <span id="current-filter-label">All Scripts</span>
+                </span>
+                <svg id="filter-arrow" style="width:13px; height:13px; transition: transform 0.25s ease;" class="text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div id="filter-dropdown-menu" class="dropdown-menu">
+                <div onclick="selectFilter('all', 'All Scripts')" class="dropdown-option active-option">
+                    <span>All Scripts</span>
+                    <span class="check-mark text-blue-400 font-bold">✓</span>
+                </div>
+                <div onclick="selectFilter('keyless', 'Keyless Only')" class="dropdown-option">
+                    <span>Keyless Only</span>
+                    <span class="check-mark hidden text-blue-400 font-bold">✓</span>
+                </div>
+                <div onclick="selectFilter('keysystem', 'Key System')" class="dropdown-option">
+                    <span>Key System</span>
+                    <span class="check-mark hidden text-blue-400 font-bold">✓</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сортировка -->
+        <div class="dropdown-container" id="custom-sort-dropdown">
+            <button type="button" id="sort-dropdown-btn" onclick="toggleDropdown('sort')" class="dropdown-btn">
                 <span id="sort-selected-text" class="truncate flex items-center gap-2">
                     <svg style="width:14px; height:14px;" class="text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>
@@ -347,17 +444,16 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
             </button>
-            
-            <div id="sort-dropdown-menu" class="sort-menu-dropdown">
-                <div onclick="selectSort('latest', 'Latest')" class="sort-option active-option">
+            <div id="sort-dropdown-menu" class="dropdown-menu">
+                <div onclick="selectSort('latest', 'Latest')" class="dropdown-option active-option">
                     <span>Latest</span>
                     <span class="check-mark text-blue-400 font-bold">✓</span>
                 </div>
-                <div onclick="selectSort('views-desc', 'Most Viewed')" class="sort-option">
+                <div onclick="selectSort('views-desc', 'Most Viewed')" class="dropdown-option">
                     <span>Most Viewed</span>
                     <span class="check-mark hidden text-blue-400 font-bold">✓</span>
                 </div>
-                <div onclick="selectSort('views-asc', 'Least Viewed')" class="sort-option">
+                <div onclick="selectSort('views-asc', 'Least Viewed')" class="dropdown-option">
                     <span>Least Viewed</span>
                     <span class="check-mark hidden text-blue-400 font-bold">✓</span>
                 </div>
@@ -367,9 +463,10 @@
 
     <!-- Контейнер для карточек -->
     <div id="scripts-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div class="col-span-3 text-center py-16 text-gray-500">
-            <p class="animate-pulse">Fetching latest scripts from database...</p>
-        </div>
+        <!-- Скелетоны для начальной загрузки -->
+        <div class="skeleton"><div class="skeleton-line h-4 w-3/4 mb-3"></div><div class="skeleton-line h-3 w-1/2 mb-6"></div><div class="skeleton-line h-10 w-full rounded-xl"></div></div>
+        <div class="skeleton"><div class="skeleton-line h-4 w-3/4 mb-3"></div><div class="skeleton-line h-3 w-1/2 mb-6"></div><div class="skeleton-line h-10 w-full rounded-xl"></div></div>
+        <div class="skeleton"><div class="skeleton-line h-4 w-3/4 mb-3"></div><div class="skeleton-line h-3 w-1/2 mb-6"></div><div class="skeleton-line h-10 w-full rounded-xl"></div></div>
     </div>
 
     <!-- Кнопка Load More -->
@@ -391,10 +488,18 @@
     </footer>
 </div>
 
+<!-- Кнопка прокрутки наверх -->
+<button id="back-to-top" onclick="scrollToTop()" title="Back to top">
+    <svg style="width:18px; height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/>
+    </svg>
+</button>
+
 <script>
 let currentPage = 1;
 let currentQuery = '';
 let currentSort = 'latest';
+let currentFilter = 'all';
 let allFetchedScripts = [];
 let searchTimeout = null;
 
@@ -410,31 +515,65 @@ function formatViews(views) {
     return num.toString();
 }
 
-function toggleSortDropdown() {
-    const menu = document.getElementById('sort-dropdown-menu');
-    const arrow = document.getElementById('sort-arrow');
-    const isOpen = menu.classList.contains('is-open');
-    
-    if (isOpen) {
-        closeSortDropdown();
+function toggleDropdown(type) {
+    const sortMenu = document.getElementById('sort-dropdown-menu');
+    const filterMenu = document.getElementById('filter-dropdown-menu');
+    const sortArrow = document.getElementById('sort-arrow');
+    const filterArrow = document.getElementById('filter-arrow');
+
+    if (type === 'sort') {
+        filterMenu.classList.remove('is-open');
+        filterArrow.style.transform = 'rotate(0deg)';
+        
+        const isOpen = sortMenu.classList.contains('is-open');
+        if (isOpen) {
+            sortMenu.classList.remove('is-open');
+            sortArrow.style.transform = 'rotate(0deg)';
+        } else {
+            sortMenu.classList.add('is-open');
+            sortArrow.style.transform = 'rotate(180deg)';
+        }
     } else {
-        menu.classList.add('is-open');
-        if (arrow) arrow.style.transform = 'rotate(180deg)';
+        sortMenu.classList.remove('is-open');
+        sortArrow.style.transform = 'rotate(0deg)';
+
+        const isOpen = filterMenu.classList.contains('is-open');
+        if (isOpen) {
+            filterMenu.classList.remove('is-open');
+            filterArrow.style.transform = 'rotate(0deg)';
+        } else {
+            filterMenu.classList.add('is-open');
+            filterArrow.style.transform = 'rotate(180deg)';
+        }
     }
 }
 
-function closeSortDropdown() {
-    const menu = document.getElementById('sort-dropdown-menu');
-    const arrow = document.getElementById('sort-arrow');
-    if (menu) menu.classList.remove('is-open');
-    if (arrow) arrow.style.transform = 'rotate(0deg)';
+function closeAllDropdowns() {
+    document.getElementById('sort-dropdown-menu').classList.remove('is-open');
+    document.getElementById('filter-dropdown-menu').classList.remove('is-open');
+    document.getElementById('sort-arrow').style.transform = 'rotate(0deg)';
+    document.getElementById('filter-arrow').style.transform = 'rotate(0deg)';
 }
 
 function selectSort(val, label) {
     currentSort = val;
     document.getElementById('current-sort-label').innerText = label;
-    
-    const options = document.querySelectorAll('.sort-option');
+    updateDropdownUI('sort', val);
+    closeAllDropdowns();
+    renderScripts();
+}
+
+function selectFilter(val, label) {
+    currentFilter = val;
+    document.getElementById('current-filter-label').innerText = label;
+    updateDropdownUI('filter', val);
+    closeAllDropdowns();
+    renderScripts();
+}
+
+function updateDropdownUI(type, val) {
+    const selector = type === 'sort' ? '#custom-sort-dropdown .dropdown-option' : '#custom-filter-dropdown .dropdown-option';
+    const options = document.querySelectorAll(selector);
     options.forEach(opt => {
         const isMatch = opt.getAttribute('onclick').includes(`'${val}'`);
         const check = opt.querySelector('.check-mark');
@@ -446,15 +585,11 @@ function selectSort(val, label) {
             if (check) check.classList.add('hidden');
         }
     });
-
-    closeSortDropdown();
-    renderScripts();
 }
 
 document.addEventListener('click', (e) => {
-    const dropdown = document.getElementById('custom-sort-dropdown');
-    if (dropdown && !dropdown.contains(e.target)) {
-        closeSortDropdown();
+    if (!e.target.closest('.dropdown-container')) {
+        closeAllDropdowns();
     }
 });
 
@@ -484,17 +619,34 @@ function renderScripts() {
     const container = document.getElementById('scripts-container');
     container.innerHTML = '';
 
-    if (allFetchedScripts.length === 0) {
-        container.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-16">No scripts found.</p>';
-        return;
-    }
-
     let displayScripts = [...allFetchedScripts];
 
+    // Применение локального фильтра (Keyless / Key System)
+    if (currentFilter === 'keyless') {
+        displayScripts = displayScripts.filter(item => item.key === false);
+    } else if (currentFilter === 'keysystem') {
+        displayScripts = displayScripts.filter(item => item.key === true);
+    }
+
+    // Применение сортировки
     if (currentSort === 'views-desc') {
         displayScripts.sort((a, b) => (Number(b.views) || 0) - (Number(a.views) || 0));
     } else if (currentSort === 'views-asc') {
         displayScripts.sort((a, b) => (Number(a.views) || 0) - (Number(b.views) || 0));
+    }
+
+    if (displayScripts.length === 0) {
+        container.innerHTML = `
+            <div class="col-span-3 text-center py-20 flex flex-col items-center justify-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4 shadow-lg shadow-blue-500/5">
+                    <svg style="width:28px; height:28px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-white font-bold text-base mb-1">No scripts found</h3>
+                <p class="text-gray-500 text-xs max-w-xs">Try changing your search query or resetting active filters.</p>
+            </div>`;
+        return;
     }
 
     displayScripts.forEach(item => {
@@ -568,7 +720,11 @@ async function fetchScripts(query = '', page = 1, append = false) {
 
     if (!append) {
         allFetchedScripts = [];
-        container.innerHTML = '<p class="col-span-3 text-center py-16 text-gray-500 animate-pulse">Loading scripts...</p>';
+        container.innerHTML = `
+            <div class="skeleton"><div class="skeleton-line h-4 w-3/4 mb-3"></div><div class="skeleton-line h-3 w-1/2 mb-6"></div><div class="skeleton-line h-10 w-full rounded-xl"></div></div>
+            <div class="skeleton"><div class="skeleton-line h-4 w-3/4 mb-3"></div><div class="skeleton-line h-3 w-1/2 mb-6"></div><div class="skeleton-line h-10 w-full rounded-xl"></div></div>
+            <div class="skeleton"><div class="skeleton-line h-4 w-3/4 mb-3"></div><div class="skeleton-line h-3 w-1/2 mb-6"></div><div class="skeleton-line h-10 w-full rounded-xl"></div></div>
+        `;
     }
 
     let url = `https://scriptblox.com/api/script/fetch?page=${page}`;
@@ -579,7 +735,6 @@ async function fetchScripts(query = '', page = 1, append = false) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        
         const scripts = data.result?.scripts || data.result?.matchedScripts || [];
 
         if (append) {
@@ -626,6 +781,20 @@ function loadMoreScripts() {
     loadMoreBtn.innerText = 'Loading...';
     currentPage++;
     fetchScripts(currentQuery, currentPage, true);
+}
+
+// Логика кнопки скролла наверх
+window.addEventListener('scroll', () => {
+    const btn = document.getElementById('back-to-top');
+    if (window.scrollY > 400) {
+        btn.classList.add('visible');
+    } else {
+        btn.classList.remove('visible');
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 document.getElementById('search-input').addEventListener('input', (e) => {
