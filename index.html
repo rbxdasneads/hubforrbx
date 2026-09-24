@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#3b82f6">
     <link rel="canonical" href="https://rbxhub.org/">
 
-    <!-- Open Graph (для превью в Telegram, Discord, VK) -->
+    <!-- Open Graph (для превью) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rbxhub.org/">
     <meta property="og:title" content="RBXHub | Free Roblox Executors & Scripts">
@@ -26,7 +26,6 @@
     <!-- Стили -->
     <link rel="stylesheet" href="/output.css">
     <style>
-        /* Стиль для интерактивных стеклянных карточек */
         .glass { 
             background: #0f0f14; 
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -49,15 +48,13 @@
     <!-- Шапка сайта -->
     <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
         
-        <!-- Переключатель страниц -->
+        <!-- Навигация -->
         <div class="flex items-center gap-6">
             <nav class="flex gap-3">
-                <!-- Активная вкладка Exploits -->
                 <a href="/" class="px-5 py-2 rounded-lg border border-blue-500 bg-blue-600/20 text-white font-bold shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all">
                     Exploits
                 </a>
                 
-                <!-- Вкладка Scripts с привлекающим бейджем HOT -->
                 <a href="/scripts.html" class="relative px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)] flex items-center gap-2">
                     Scripts
                     <span class="bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider animate-pulse">HOT</span>
@@ -145,15 +142,17 @@
         </a>
     </div>
 
-    <!-- НОВАЯ СЕКЦИЯ: Призыв перейти в Скрипты (Промо-блок) -->
+    <!-- ОБНОВЛЕННЫЙ БЛОК: Призыв перейти в Скрипты (С новой кнопкой и анимациями) -->
     <div class="glass my-16 p-8 border border-blue-500/30 bg-gradient-to-r from-[#0f0f14] via-[#121624] to-[#0f0f14] flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
             <span class="text-xs font-bold text-blue-400 uppercase tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Updated Daily</span>
             <h3 class="text-2xl font-black text-white uppercase tracking-tight mt-2">Looking for Roblox Scripts?</h3>
             <p class="text-sm text-gray-400 mt-1">Get 1,000+ keyless scripts for Blox Fruits, Rivals, Pet Simulator 99 & more.</p>
         </div>
-        <a href="/scripts.html" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(59,130,246,0.4)] whitespace-nowrap">
-            Browse Scripts →
+        
+        <a href="/scripts.html" class="group/btn px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-wider transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.7)] hover:scale-105 active:scale-95 flex items-center gap-2 whitespace-nowrap">
+            <span>Get Scripts</span>
+            <span class="inline-block transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
         </a>
     </div>
 
