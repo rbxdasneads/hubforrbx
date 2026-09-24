@@ -14,9 +14,219 @@
     <link rel="stylesheet" href="/output.css">
     
     <style>
-        /* Сброс стандартных фокусов */
+        /* Базовый сброс */
+        * {
+            box-sizing: border-box;
+        }
         *:focus {
             outline: none !important;
+        }
+
+        /* Идеальная шапка сайта */
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            padding: 0 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .nav-btn-default {
+            background: #0b0d14;
+            border: 1px solid #161922;
+            color: #d1d5db;
+        }
+        .nav-btn-default:hover {
+            background: #12141c;
+            color: #ffffff;
+            border-color: #272a38;
+        }
+        .nav-btn-active {
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Плашка AUTO UPDATING */
+        .badge-auto-update {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: #34d399;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .pulse-dot {
+            position: relative;
+            display: flex;
+            width: 8px;
+            height: 8px;
+        }
+        .pulse-dot-ring {
+            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+            position: absolute;
+            display: inline-flex;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            background-color: #34d399;
+            opacity: 0.75;
+        }
+        .pulse-dot-core {
+            position: relative;
+            display: inline-flex;
+            border-radius: 50%;
+            height: 8px;
+            width: 8px;
+            background-color: #34d399;
+        }
+
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Блок поиска и сортировки в одну строчку */
+        .controls-wrapper {
+            display: flex;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto 36px auto;
+            align-items: center;
+        }
+
+        /* Поле поиска */
+        .search-box-container {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+        }
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            z-index: 5;
+            width: 16px;
+            height: 16px;
+            color: #6b7280;
+        }
+        .search-input {
+            width: 100% !important;
+            height: 48px !important;
+            background: #0b0d14 !important;
+            border: 1px solid #161922 !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            font-size: 0.875rem !important;
+            padding-left: 46px !important; /* Гарантирует отступ от лупы! */
+            padding-right: 16px !important;
+            transition: all 0.2s ease !important;
+        }
+        .search-input:focus {
+            border-color: rgba(59, 130, 246, 0.5) !important;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1) !important;
+        }
+
+        /* Кнопка сортировки (компактная) */
+        .sort-dropdown-container {
+            position: relative;
+            width: 200px; /* Ограниченная ширина */
+            flex-shrink: 0;
+        }
+        .sort-btn {
+            width: 100% !important;
+            height: 48px !important;
+            background: #0b0d14 !important;
+            border: 1px solid #161922 !important;
+            border-radius: 12px !important;
+            color: #d1d5db !important;
+            padding: 0 16px !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            transition: all 0.2s ease !important;
+        }
+        .sort-btn:hover {
+            border-color: rgba(59, 130, 246, 0.3) !important;
+            color: #ffffff !important;
+            background: #0e111a !important;
+        }
+
+        /* Выпадающее меню сортировки */
+        .sort-menu-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            left: 0;
+            margin-top: 8px;
+            padding: 6px;
+            background: #0c0e15 !important;
+            border: 1px solid #1d2130 !important;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(59, 130, 246, 0.08) !important;
+            z-index: 100;
+            
+            /* Анимация */
+            opacity: 0;
+            transform: translateY(-8px) scale(0.96);
+            pointer-events: none;
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            backdrop-filter: blur(12px);
+        }
+        .sort-menu-dropdown.is-open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .sort-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #9ca3af;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .sort-option:hover {
+            background: rgba(59, 130, 246, 0.12);
+            color: #ffffff;
+        }
+        .sort-option.active-option {
+            background: rgba(59, 130, 246, 0.18);
+            color: #ffffff;
         }
 
         /* Карточки скриптов */
@@ -38,7 +248,6 @@
             transform: translateY(-2px);
         }
 
-        /* Превью картинки внутри карточки */
         .card-thumb-wrapper {
             width: 50px !important;
             height: 50px !important;
@@ -59,84 +268,6 @@
             display: block !important;
         }
 
-        /* Поле поиска */
-        .search-input {
-            background: #0b0d14 !important;
-            border: 1px solid #161922 !important;
-            color: #ffffff !important;
-            transition: all 0.2s ease !important;
-        }
-        .search-input:focus {
-            border-color: rgba(59, 130, 246, 0.5) !important;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1) !important;
-        }
-
-        /* Кнопка сортировки */
-        .sort-btn {
-            background: #0b0d14 !important;
-            border: 1px solid #161922 !important;
-            color: #d1d5db !important;
-            transition: all 0.2s ease !important;
-            height: 100% !important;
-        }
-        .sort-btn:hover {
-            border-color: rgba(59, 130, 246, 0.3) !important;
-            color: #ffffff !important;
-            background: #0e111a !important;
-        }
-
-        /* Анимированное выпадающее меню сортировки */
-        .sort-menu-dropdown {
-            position: absolute;
-            right: 0;
-            left: 0;
-            margin-top: 8px;
-            padding: 6px;
-            background: #0c0e15 !important;
-            border: 1px solid #1d2130 !important;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(59, 130, 246, 0.08) !important;
-            z-index: 50;
-            
-            /* Плавная анимация появления */
-            opacity: 0;
-            transform: translateY(-8px) scale(0.96);
-            pointer-events: none;
-            transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            backdrop-filter: blur(12px);
-        }
-
-        .sort-menu-dropdown.is-open {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-        }
-
-        .sort-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 14px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #9ca3af;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.18s ease;
-        }
-
-        .sort-option:hover {
-            background: rgba(59, 130, 246, 0.12);
-            color: #ffffff;
-            transform: translateX(2px);
-        }
-
-        .sort-option.active-option {
-            background: rgba(59, 130, 246, 0.18);
-            color: #ffffff;
-        }
-
-        /* Кнопка Copy Script */
         .btn-copy {
             background: rgba(255, 255, 255, 0.03) !important;
             color: #a1a1aa !important;
@@ -153,14 +284,12 @@
             display: block !important;
             text-align: center !important;
         }
-
         .btn-copy:hover {
             background: rgba(59, 130, 246, 0.12) !important;
             color: #60a5fa !important;
             border-color: rgba(59, 130, 246, 0.4) !important;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.15) !important;
         }
-
         .btn-copy.copied {
             background: rgba(16, 185, 129, 0.15) !important;
             color: #34d399 !important;
@@ -168,7 +297,6 @@
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
         }
 
-        /* Кнопка Load More */
         .btn-load-more {
             background: #0b0d14;
             border: 1px solid rgba(59, 130, 246, 0.3);
@@ -195,26 +323,26 @@
 
 <div class="max-w-6xl mx-auto">
     <!-- Шапка сайта -->
-    <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800/60 mb-12">
+    <header class="site-header">
         <!-- Навигация -->
-        <div class="flex items-center gap-3">
-            <a href="/" class="px-5 py-2 rounded-xl border border-gray-800 bg-[#0b0d14] text-gray-300 font-bold text-sm transition-all hover:bg-[#12141c] hover:text-white hover:border-gray-700">Exploits</a>
-            <a href="/scripts.html" class="px-5 py-2 rounded-xl border border-blue-500/50 bg-blue-500/10 text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.15)]">Scripts</a>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="/" class="nav-btn nav-btn-default">Exploits</a>
+            <a href="/scripts.html" class="nav-btn nav-btn-active">Scripts</a>
         </div>
 
         <!-- Логотип -->
-        <div class="text-center">
-            <h1 class="text-5xl font-black uppercase tracking-tighter italic">
+        <div style="text-align: center;">
+            <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tighter italic" style="margin: 0;">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">RBX</span><span class="text-blue-500">HUB</span>
             </h1>
         </div>
 
-        <!-- Ровная ровная плашка Auto Updating -->
-        <div class="flex justify-end items-center">
-            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 font-extrabold text-xs tracking-wider uppercase shadow-[0_0_12px_rgba(16,185,129,0.1)]">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+        <!-- Плашка Auto Updating -->
+        <div>
+            <div class="badge-auto-update">
+                <span class="pulse-dot">
+                    <span class="pulse-dot-ring"></span>
+                    <span class="pulse-dot-core"></span>
                 </span>
                 <span>Auto Updating</span>
             </div>
@@ -228,22 +356,18 @@
     </div>
 
     <!-- Панель Поиска и Сортировки -->
-    <div class="flex flex-col sm:flex-row gap-3 max-w-3xl mx-auto mb-10">
-        <!-- Поле Поиска (с идеально отцентрованной лупой) -->
-        <div class="relative flex-1" style="position: relative;">
-            <div style="position: absolute; top: 50%; transform: translateY(-50%); left: 14px; pointer-events: none; z-index: 10; display: flex; align-items: center;">
-                <svg style="width:16px; height:16px;" class="text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-            </div>
-            <input type="text" id="search-input" placeholder="Search script or game name..." 
-                   class="w-full search-input rounded-xl pl-10 pr-4 py-3 text-sm placeholder-gray-500">
+    <div class="controls-wrapper">
+        <!-- Поле поиска -->
+        <div class="search-box-container">
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search script or game name..." class="search-input">
         </div>
 
-        <!-- Кастомное Анимированное Выпадающее Меню -->
-        <div class="relative w-full sm:w-52" id="custom-sort-dropdown">
-            <button type="button" id="sort-dropdown-btn" onclick="toggleSortDropdown()" 
-                    class="w-full sort-btn flex items-center justify-between px-4 py-3 text-xs font-bold rounded-xl cursor-pointer">
+        <!-- Компактная Сортировка -->
+        <div class="sort-dropdown-container" id="custom-sort-dropdown">
+            <button type="button" id="sort-dropdown-btn" onclick="toggleSortDropdown()" class="sort-btn">
                 <span id="sort-selected-text" class="truncate flex items-center gap-2">
                     <svg style="width:14px; height:14px;" class="text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>
@@ -255,7 +379,7 @@
                 </svg>
             </button>
             
-            <!-- Меню выбора -->
+            <!-- Выпадающий список -->
             <div id="sort-dropdown-menu" class="sort-menu-dropdown">
                 <div onclick="selectSort('latest', 'Latest')" class="sort-option active-option">
                     <span>Latest</span>
@@ -273,14 +397,14 @@
         </div>
     </div>
 
-    <!-- Контейнер карточек -->
+    <!-- Контейнер для карточек -->
     <div id="scripts-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div class="col-span-3 text-center py-16 text-gray-500">
             <p class="animate-pulse">Fetching latest scripts from database...</p>
         </div>
     </div>
 
-    <!-- Кнопка "Загрузить ещё" -->
+    <!-- Кнопка Load More -->
     <div class="text-center mb-20">
         <button id="load-more-btn" onclick="loadMoreScripts()" class="btn-load-more" style="display: none;">
             Load More Scripts
@@ -306,13 +430,11 @@ let currentSort = 'latest';
 let allFetchedScripts = [];
 let searchTimeout = null;
 
-// Заглушка для битых картинок
 function handleImageError(img) {
     img.onerror = null;
     img.src = '/images/solara.webp';
 }
 
-// Форматирование просмотров
 function formatViews(views) {
     const num = Number(views) || 0;
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -320,7 +442,6 @@ function formatViews(views) {
     return num.toString();
 }
 
-// Управление выпадающим меню с анимацией
 function toggleSortDropdown() {
     const menu = document.getElementById('sort-dropdown-menu');
     const arrow = document.getElementById('sort-arrow');
@@ -343,11 +464,8 @@ function closeSortDropdown() {
 
 function selectSort(val, label) {
     currentSort = val;
-    
-    // Показываем чистое имя (без "Sort:")
     document.getElementById('current-sort-label').innerText = label;
     
-    // Подсветка активной опции
     const options = document.querySelectorAll('.sort-option');
     options.forEach(opt => {
         const isMatch = opt.getAttribute('onclick').includes(`'${val}'`);
@@ -372,7 +490,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Индивидуальные описания для скриптов
 function getScriptDescription(item) {
     if (item.features && typeof item.features === 'string' && item.features.trim().length > 3) {
         return item.features.trim();
@@ -395,7 +512,6 @@ function getScriptDescription(item) {
     return `${cleanTitle || 'Script Hub'} designed for ${gameName}. Updated script features and player enhancements for execution.`;
 }
 
-// Отрисовка карточек
 function renderScripts() {
     const container = document.getElementById('scripts-container');
     container.innerHTML = '';
@@ -478,7 +594,6 @@ function renderScripts() {
     });
 }
 
-// Загрузка с API
 async function fetchScripts(query = '', page = 1, append = false) {
     const container = document.getElementById('scripts-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
@@ -522,7 +637,6 @@ async function fetchScripts(query = '', page = 1, append = false) {
     }
 }
 
-// Копирование в буфер
 function copyToClipboard(btnElement, encodedScript) {
     const scriptText = decodeURIComponent(encodedScript);
     navigator.clipboard.writeText(scriptText).then(() => {
@@ -539,7 +653,6 @@ function copyToClipboard(btnElement, encodedScript) {
     });
 }
 
-// Загрузить еще
 function loadMoreScripts() {
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.innerText = 'Loading...';
@@ -547,7 +660,6 @@ function loadMoreScripts() {
     fetchScripts(currentQuery, currentPage, true);
 }
 
-// Поиск с debounce
 document.getElementById('search-input').addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -557,7 +669,6 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     }, 400);
 });
 
-// Старт
 fetchScripts();
 </script>
 
