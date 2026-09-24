@@ -53,6 +53,7 @@
             text-decoration: none;
             transition: all 0.2s ease;
             border: 1px solid transparent;
+            white-space: nowrap;
         }
         .nav-btn.active {
             background: rgba(37, 99, 235, 0.2);
@@ -96,6 +97,21 @@
             border-radius: 50%;
             background-color: #34d399;
             box-shadow: 0 0 8px #34d399;
+        }
+
+        /* Адаптив для шапки на мобилках */
+        @media (max-width: 768px) {
+            .header-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .header-nav > div {
+                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
+            }
         }
 
         /* Карточки */
