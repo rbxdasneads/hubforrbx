@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Жестко фиксируем единый моноширинный шрифт для всей страницы */
         body {
             font-family: Consolas, monospace !important;
             background-color: #050507;
@@ -113,9 +114,10 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        /* Кнопка: в покое без тени, светится ТОЛЬКО при наведении */
+        /* Кнопка: в обычном состоянии плоская без свечения, неон только при наведении */
         .btn-download {
-            background: #2563eb !important;
+            background-color: #1d4ed8 !important;
+            background-image: none !important;
             color: #ffffff !important;
             font-weight: 800 !important;
             text-transform: uppercase;
@@ -126,13 +128,16 @@
             width: 100%;
             text-align: center;
             text-decoration: none;
-            transition: all 0.25s ease !important;
             box-shadow: none !important;
+            filter: none !important;
+            transition: all 0.25s ease !important;
+            border: none !important;
         }
+
         .btn-download:hover {
-            background: #1d4ed8 !important;
+            background-color: #2563eb !important;
             transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6) !important;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7) !important;
         }
     </style>
 </head>
