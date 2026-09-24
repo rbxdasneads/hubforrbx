@@ -22,6 +22,77 @@
 
     <link rel="stylesheet" href="/output.css">
     <style>
+        /* Шапка сайта */
+        .header-nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 48px;
+        }
+        .nav-toggle {
+            display: inline-flex;
+            background: #0f0f14;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 4px;
+        }
+        .nav-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .nav-btn.active {
+            background: rgba(37, 99, 235, 0.2);
+            color: #ffffff;
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+        }
+        .nav-btn:hover:not(.active) {
+            color: #ffffff;
+        }
+        .logo-text {
+            font-size: 36px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            color: #ffffff;
+            margin: 0;
+        }
+        .logo-text span {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            white-space: nowrap;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #34d399;
+            box-shadow: 0 0 8px #34d399;
+        }
+
         /* Карточки */
         .glass { 
             background: #0f0f14; 
@@ -37,7 +108,7 @@
             transform: translateY(-6px);
         }
 
-        /* Фиксация иконок */
+        /* Иконки */
         .card-icon {
             width: 56px !important;
             height: 56px !important;
@@ -62,11 +133,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 24px;
-            position: relative;
-            overflow: hidden;
         }
-
-        /* Кнопка */
         .btn-banner {
             display: inline-flex;
             align-items: center;
@@ -81,7 +148,7 @@
             padding: 12px 24px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
             white-space: nowrap;
             text-decoration: none;
@@ -102,29 +169,23 @@
 
 <div class="max-w-6xl mx-auto">
     <!-- Шапка сайта -->
-    <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
-        <div class="flex items-center gap-6">
-            <nav class="flex gap-2 bg-[#0f0f14] p-1.5 rounded-xl border border-white/5">
-                <a href="/" class="px-5 py-2 rounded-lg bg-blue-600/20 border border-blue-500/50 text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all">
-                    Exploits
-                </a>
-                <a href="/scripts.html" class="px-5 py-2 rounded-lg text-gray-400 font-bold text-sm hover:text-white transition-all">
-                    Scripts
-                </a>
-            </nav>
+    <header class="header-nav">
+        <div style="display: flex; align-items: center;">
+            <div class="nav-toggle">
+                <a href="/" class="nav-btn active">Exploits</a>
+                <a href="/scripts.html" class="nav-btn">Scripts</a>
+            </div>
         </div>
 
-        <div class="text-center">
-            <a href="/" class="inline-block">
-                <h1 class="text-4xl font-black uppercase tracking-tighter italic">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">HUB</span>
-                </h1>
+        <div style="text-align: center;">
+            <a href="/" style="text-decoration: none;">
+                <h1 class="logo-text">RBX<span>HUB</span></h1>
             </a>
         </div>
 
-        <div class="flex justify-end">
-            <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20 tracking-wider">
-                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div style="display: flex; justify-content: flex-end;">
+            <div class="status-badge">
+                <span class="status-dot"></span>
                 STATUS: ONLINE
             </div>
         </div>
@@ -211,7 +272,7 @@
         </a>
     </div>
 
-    <!-- Раздел OTHERS -->
+    <!-- Раздел OTHERS (Все 5 карточек) -->
     <div class="text-center mb-10">
         <h2 class="text-3xl font-black text-white uppercase tracking-tight">Others</h2>
         <p class="text-sm text-gray-500 mt-2">Tools to support cheats</p>
@@ -246,6 +307,26 @@
                 </div>
                 <p class="text-sm text-gray-400">Our favorite file (de)compressor which supports nearly every file format.</p>
                 <div class="flex items-center gap-2 mt-6 text-gray-500"><img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows" class="tech-icon"> <span class="text-xs">2.2k+</span></div>
+            </div>
+        </a>
+        <a href="extremeinjector.html" class="block group">
+            <div class="glass h-full">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="/images/extremeinjector.png" alt="Extreme Injector" class="card-icon">
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight">Extreme Injector</h2>
+                </div>
+                <p class="text-sm text-gray-400">Typically used to inject dll based exploits into programs.</p>
+                <div class="flex items-center gap-2 mt-6 text-gray-500"><img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows" class="tech-icon"> <span class="text-xs">7.9k+</span></div>
+            </div>
+        </a>
+        <a href="winrar.html" class="block group">
+            <div class="glass h-full">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="/images/winrar.png" alt="WinRar" class="card-icon">
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight">WinRar</h2>
+                </div>
+                <p class="text-sm text-gray-400">This is used to open archived files such as .rar and .zip files.</p>
+                <div class="flex items-center gap-2 mt-6 text-gray-500"><img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows" class="tech-icon"> <span class="text-xs">1.9k+</span></div>
             </div>
         </a>
     </div>
