@@ -79,6 +79,12 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
             transform: translateY(-2px);
         }
+
+        /* Стили выпадающего списка */
+        select option {
+            background-color: #0f0f14;
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -107,15 +113,26 @@
         </div>
     </header>
 
-    <!-- Заголовок и поиск -->
-    <div class="text-center mb-10 max-w-xl mx-auto">
+    <!-- Заголовок и блоки Поиска/Сортировки -->
+    <div class="text-center mb-10 max-w-2xl mx-auto">
         <h2 class="text-3xl font-black text-white uppercase tracking-tight">Latest Roblox Scripts</h2>
         <p class="text-sm text-gray-500 mt-2 mb-6">Auto-updated Roblox scripts & working hubs</p>
 
-        <!-- Поисковая строка -->
-        <div class="relative">
-            <input type="text" id="search-input" placeholder="Search script or game..." 
-                   class="w-full bg-[#0f0f14] border border-gray-800 rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all shadow-inner">
+        <!-- Поиск и Сортировка -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="relative sm:col-span-2">
+                <input type="text" id="search-input" placeholder="Search script or game..." 
+                       class="w-full bg-[#0f0f14] border border-gray-800 rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all shadow-inner">
+            </div>
+
+            <div>
+                <select id="sort-select" 
+                        class="w-full bg-[#0f0f14] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-all cursor-pointer">
+                    <option value="latest">Sort: Latest</option>
+                    <option value="views-desc">Sort: Most Viewed</option>
+                    <option value="views-asc">Sort: Least Viewed</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -148,6 +165,8 @@
 <script>
 let currentPage = 1;
 let currentQuery = '';
+let currentSort = 'latest';
+let allFetchedScripts = [];
 let searchTimeout = null;
 
 // Заглушка для битых картинок
@@ -165,12 +184,88 @@ function formatViews(views) {
     return views;
 }
 
-// Загрузка скриптов
+// Отрисовка карточек с учётом выбранной сортировки
+function renderScripts() {
+    const container = document.getElementById('scripts-container');
+    container.innerHTML = '';
+
+    if (allFetchedScripts.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-12">No scripts found.</p>';
+        return;
+    }
+
+    // Клонируем массив перед сортировкой
+    let displayScripts = [...allFetchedScripts];
+
+    if (currentSort === 'views-desc') {
+        displayScripts.sort((a, b) => (b.views || 0) - (a.views || 0));
+    } else if (currentSort === 'views-asc') {
+        displayScripts.sort((a, b) => (a.views || 0) - (b.views || 0));
+    }
+
+    displayScripts.forEach(item => {
+        let imageUrl = '/images/solara.webp';
+        if (item.game && item.game.imageUrl) {
+            imageUrl = item.game.imageUrl.startsWith('http') 
+                ? item.game.imageUrl 
+                : 'https://scriptblox.com' + item.game.imageUrl;
+        }
+
+        const isKeyless = item.key === false;
+        const keyBadge = isKeyless 
+            ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">KEYLESS</span>`
+            : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">KEY SYSTEM</span>`;
+
+        const verifiedBadge = item.verified 
+            ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">VERIFIED</span>` 
+            : '';
+
+        const gameName = item.game?.name || 'Roblox Game';
+        const scriptTitle = item.title || 'Untitled Script';
+        const viewsCount = formatViews(item.views);
+
+        const card = document.createElement('div');
+        card.className = 'glass flex flex-col justify-between h-full';
+        card.innerHTML = `
+            <div>
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="${imageUrl}" onerror="handleImageError(this)" class="h-14 w-14 rounded-xl object-cover bg-gray-900 border border-gray-800 shrink-0">
+                    <div class="overflow-hidden">
+                        <h3 class="text-base font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
+                        <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                            <span class="text-[10px] text-gray-400 font-bold bg-gray-800/50 px-2 py-0.5 rounded border border-gray-700/50 truncate max-w-[120px]">${gameName}</span>
+                            ${keyBadge}
+                            ${verifiedBadge}
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 line-clamp-3 mb-6 leading-relaxed">
+                    ${item.features || 'Universal script hub with auto-farm and player enhancements.'}
+                </p>
+            </div>
+            
+            <div>
+                <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2 px-1">
+                    <span>👁 ${viewsCount} views</span>
+                    <span class="text-blue-400/80 font-bold tracking-wider text-[10px] uppercase">RBXHub</span>
+                </div>
+                <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" 
+                        class="btn-copy">
+                    Copy Script
+                </button>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Получение данных
 async function fetchScripts(query = '', page = 1, append = false) {
     const container = document.getElementById('scripts-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
 
     if (!append) {
+        allFetchedScripts = [];
         container.innerHTML = '<p class="col-span-3 text-center py-12 text-gray-500">Loading scripts...</p>';
     }
 
@@ -185,72 +280,13 @@ async function fetchScripts(query = '', page = 1, append = false) {
         
         const scripts = data.result?.scripts || data.result?.matchedScripts || [];
 
-        if (!append) {
-            container.innerHTML = '';
+        if (append) {
+            allFetchedScripts = [...allFetchedScripts, ...scripts];
+        } else {
+            allFetchedScripts = scripts;
         }
 
-        if (scripts.length === 0) {
-            if (!append) {
-                container.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-12">No scripts found.</p>';
-            }
-            loadMoreBtn.style.display = 'none';
-            return;
-        }
-
-        scripts.forEach(item => {
-            let imageUrl = '/images/solara.webp';
-            if (item.game && item.game.imageUrl) {
-                imageUrl = item.game.imageUrl.startsWith('http') 
-                    ? item.game.imageUrl 
-                    : 'https://scriptblox.com' + item.game.imageUrl;
-            }
-
-            const isKeyless = item.key === false;
-            const keyBadge = isKeyless 
-                ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">KEYLESS</span>`
-                : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">KEY SYSTEM</span>`;
-
-            const verifiedBadge = item.verified 
-                ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">VERIFIED</span>` 
-                : '';
-
-            const gameName = item.game?.name || 'Roblox Game';
-            const scriptTitle = item.title || 'Untitled Script';
-            const viewsCount = formatViews(item.views);
-
-            const card = document.createElement('div');
-            card.className = 'glass flex flex-col justify-between h-full';
-            card.innerHTML = `
-                <div>
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="${imageUrl}" onerror="handleImageError(this)" class="h-14 w-14 rounded-xl object-cover bg-gray-900 border border-gray-800 shrink-0">
-                        <div class="overflow-hidden">
-                            <h3 class="text-base font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
-                            <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
-                                <span class="text-[10px] text-gray-400 font-bold bg-gray-800/50 px-2 py-0.5 rounded border border-gray-700/50 truncate max-w-[120px]">${gameName}</span>
-                                ${keyBadge}
-                                ${verifiedBadge}
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 line-clamp-3 mb-6 leading-relaxed">
-                        ${item.features || 'Universal script hub with auto-farm and player enhancements.'}
-                    </p>
-                </div>
-                
-                <div>
-                    <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2 px-1">
-                        <span>👁 ${viewsCount} views</span>
-                        <span class="text-blue-400/80 font-bold tracking-wider text-[10px] uppercase">RBXHub</span>
-                    </div>
-                    <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" 
-                            class="btn-copy">
-                        Copy Script
-                    </button>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+        renderScripts();
 
         if (scripts.length >= 20) {
             loadMoreBtn.style.display = 'inline-block';
@@ -267,7 +303,7 @@ async function fetchScripts(query = '', page = 1, append = false) {
     }
 }
 
-// Функция копирования с анимированной обратной связью
+// Функция копирования
 function copyToClipboard(btnElement, encodedScript) {
     const scriptText = decodeURIComponent(encodedScript);
     navigator.clipboard.writeText(scriptText).then(() => {
@@ -284,7 +320,7 @@ function copyToClipboard(btnElement, encodedScript) {
     });
 }
 
-// Подгрузка следующей страницы
+// Загрузка следующей страницы
 function loadMoreScripts() {
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.innerText = 'Loading...';
@@ -292,7 +328,7 @@ function loadMoreScripts() {
     fetchScripts(currentQuery, currentPage, true);
 }
 
-// Живой поиск
+// Поиск
 document.getElementById('search-input').addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -300,6 +336,12 @@ document.getElementById('search-input').addEventListener('input', (e) => {
         currentPage = 1;
         fetchScripts(currentQuery, currentPage, false);
     }, 400);
+});
+
+// Слушатель изменения сортировки
+document.getElementById('sort-select').addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    renderScripts();
 });
 
 // Автозапуск
