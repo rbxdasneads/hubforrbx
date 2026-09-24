@@ -4,80 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBXHub | Velocity</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/favicon-v2.png">
+    <link rel="stylesheet" href="/output.css">
+    <style>
+        a:focus, button:focus {
+            outline: none !important;
+        }
+
+        /* ===== Шапка (как на главной) ===== */
+        .header-nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 48px;
+        }
+        .nav-toggle {
+            display: inline-flex;
+            background: #0f0f14;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 4px;
+        }
+        .nav-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            background: transparent;
+        }
+        .nav-btn:hover {
+            color: #ffffff;
+            background: rgba(37, 99, 235, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
+        }
+        .logo-text {
+            font-size: 36px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            color: #ffffff;
+            margin: 0;
+        }
+        .logo-text span {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            white-space: nowrap;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #34d399;
+            box-shadow: 0 0 8px #34d399;
+        }
+
+        /* Адаптив шапки */
+        @media (max-width: 768px) {
+            .header-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 16px 0;
+                margin-bottom: 32px;
+            }
+            .header-nav > div {
+                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
+            }
+            .logo-text {
+                font-size: 28px;
+            }
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+
+        /* Кнопка Download */
+        .btn-tg {
+            display: block;
+            width: 100%;
+            background: #0f0f14;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 14px 24px;
+            border-radius: 10px;
+            border: 1px solid rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .btn-tg:hover {
+            background: rgba(37, 99, 235, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+            color: #ffffff;
+        }
+
+        /* Карточки */
+        .glass {
+            background: #0f0f14;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+        }
+    </style>
 </head>
-<body class="p-6 bg-[#050507]">
-    <div class="max-w-4xl mx-auto mb-6">
-    <a href="index.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-        </svg>
-        <span>Back</span>
-    </a>
-</div>
-
+<body class="p-6 bg-[#050507] text-slate-300">
 <div class="max-w-4xl mx-auto">
-    <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
-    
-    <div class="flex items-center gap-6">
-        <nav class="flex gap-3">
-            <a href="/" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">Exploits</a>
-            <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">Scripts</a>
-        </nav>
-    </div>
 
-    <div class="text-center">
-        <h1 class="text-5xl font-black uppercase tracking-tighter italic">
-    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]">HUB</span>
-</h1>
-    </div>
-
-    <div class="flex justify-end">
-        <div class="flex items-center gap-2 text-xs font-bold text-green-500 bg-green-500/5 px-3 py-1.5 rounded-full border border-green-500/20">
-            <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>STATUS: WORKING
+    <!-- HEADER -->
+    <header class="header-nav">
+        <div style="display: flex; align-items: center;">
+            <div class="nav-toggle">
+                <a href="/" class="nav-btn">Exploits</a>
+                <a href="/scripts.html" class="nav-btn">Scripts</a>
+            </div>
         </div>
-    </div>
-</header>
+        <div style="text-align: center;">
+            <a href="/" style="text-decoration: none;">
+                <h1 class="logo-text">RBX<span>HUB</span></h1>
+            </a>
+        </div>
+        <div style="display: flex; justify-content: flex-end;">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                STATUS: ONLINE
+            </div>
+        </div>
+    </header>
 
-    <div class="max-w-4xl mx-auto space-y-6"> <div class="glass p-6 rounded-2xl border border-[#222] text-center">
-        <h2 class="text-xl font-bold text-white mb-4">Download Velocity</h2>
-        <a href="https://github.com/antonkoval200koval-collab/wakeupfilfy/releases/download/1.2/Velocity.zip" 
-           target="_blank" 
-           rel="nofollow noopener noreferrer" 
-           class="btn-tg w-full block py-3 font-bold uppercase transition hover:opacity-90">
-           Download PC
-        </a>
-        <p class="text-[10px] text-gray-500 mt-3 uppercase tracking-wider">
-        Verified link from GitHub
-        </p>
-    
-    <div class="space-y-4">
-</div>
-    </div>
+    <!-- Контент -->
+    <div class="space-y-6">
 
+        <!-- Download блок -->
         <div class="glass p-6 rounded-2xl border border-[#222] text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbBjojn-83jO-mEzNq-oc_X8FcbtdCpntGVA&s" class="h-20 w-20 mx-auto rounded-xl mb-4">
-        <p class="text-sm text-gray-400">Superior Undetected EXECUTOR with 99% UNC & External Completely Free! </p>
-    </div>
+            <h2 class="text-xl font-bold text-white mb-4">Download Velocity</h2>
+            <a href="https://github.com/antonkoval200koval-collab/wakeupfilfy/releases/download/1.2/Velocity.zip" 
+               target="_blank" 
+               rel="nofollow noopener noreferrer" 
+               class="btn-tg">
+                Download PC
+            </a>
+            <p class="text-[10px] text-gray-500 mt-3 uppercase tracking-wider">
+                Verified link from GitHub
+            </p>
+        </div>
 
-    <div class="glass p-8 rounded-2xl border border-gray-800">
-        <h3 class="text-lg font-bold text-white mb-4">General Info</h3>
-            <ul class="text-sm text-gray-500 space-y-2 list-disc pl-5">
-                <li> Check anti-virus/firewall if you can't Download! Due to the nature of exploits(Obfuscation, game manipulation, etc), they're falsely marked as viruses/malware. This tool may reliably prevent Windows Defender from automatically turning itself back on.</li>
+        <!-- Описание -->
+        <div class="glass p-6 rounded-2xl border border-[#222] text-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbBjojn-83jO-mEzNq-oc_X8FcbtdCpntGVA&s" class="h-20 w-20 mx-auto rounded-xl mb-4" alt="Velocity">
+            <p class="text-sm text-gray-400">Superior Undetected EXECUTOR with 99% UNC & External Completely Free!</p>
+        </div>
+
+        <!-- General Info -->
+        <div class="glass p-8 rounded-2xl border border-gray-800">
+            <h3 class="text-lg font-bold text-white mb-4">General Info</h3>
+            <ul class="text-sm text-gray-500 space-y-2 list-disc pl-5 text-left">
+                <li>Check anti-virus/firewall if you can't Download! Due to the nature of exploits (Obfuscation, game manipulation, etc), they're falsely marked as viruses/malware. This tool may reliably prevent Windows Defender from automatically turning itself back on.</li>
                 <li>In some browsers like Google Chrome, there is a "Safe Browsing" setting that blocks certain Downloads.</li>
                 <li>Most exploits break every week. Come back to this website site often for updates and fixes.</li>
                 <li>Use a VPN if an exploit is failing to connect to the internet for assets or updates.</li>
                 <li>Velocity supports (UNC) Unified Naming Convention.</li>
             </ul>
         </div>
-        <div class="bg-gray-900 border border-gray-800 p-4 rounded-lg mt-4 text-sm text-gray-500">
-    <p><strong>🔄 Last update:</strong> September 22</p>
-    <p class="mt-1 italic">Note: Most of our tools feature an auto-updater. Even if the date above is older, the software will check for the latest files upon launch.</p>
-</div>
+
+        <!-- Last update -->
+        <div class="bg-gray-900 border border-gray-800 p-4 rounded-lg text-sm text-gray-500">
+            <p><strong>🔄 Last update:</strong> September 22</p>
+            <p class="mt-1 italic">Note: Most of our tools feature an auto-updater. Even if the date above is older, the software will check for the latest files upon launch.</p>
+        </div>
+
     </div>
 </div>
-
 </body>
 </html>
