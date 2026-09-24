@@ -26,7 +26,7 @@
     <!-- Стили -->
     <link rel="stylesheet" href="/output.css">
     <style>
-        /* Исходные стили для карточек */
+        /* Стили карточек */
         .glass { 
             background: #0f0f14; 
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -41,7 +41,7 @@
             transform: translateY(-6px);
         }
 
-        /* Защита от разрыва сетки (фиксация размеров) */
+        /* Фиксация размеров иконок */
         .card-icon {
             width: 56px !important;
             height: 56px !important;
@@ -55,23 +55,65 @@
             flex-shrink: 0;
         }
 
-        /* Аккуратный баннер скриптов */
-        .scripts-banner {
-            background: linear-gradient(135deg, #0f0f14 0%, #121624 50%, #0f0f14 100%);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+        /* Дизайнерский баннер скриптов */
+        .banner-box {
+            background: linear-gradient(135deg, #0b0d14 0%, #111524 50%, #0b0d14 100%);
+            border: 1px solid rgba(59, 130, 246, 0.25);
             border-radius: 16px;
-            padding: 28px;
-            margin: 48px 0;
+            padding: 28px 32px;
+            margin: 40px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-glow {
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        .banner-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .btn-glow:hover {
-            background-color: #3b82f6;
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+
+        /* Кастомная аккуратная кнопка */
+        .btn-banner {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            white-space: nowrap;
+            text-decoration: none;
+            z-index: 2;
+        }
+        .btn-banner:hover {
+            background: #3b82f6;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
             transform: translateY(-2px);
+        }
+        .btn-banner:active {
+            transform: translateY(0);
+        }
+        .btn-banner .arrow {
+            transition: transform 0.2s ease;
+        }
+        .btn-banner:hover .arrow {
+            transform: translateX(4px);
         }
     </style>
 </head>
@@ -86,9 +128,8 @@
                 <a href="/" class="px-5 py-2 rounded-lg border border-blue-500 bg-blue-600/20 text-white font-bold shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all">
                     Exploits
                 </a>
-                <a href="/scripts.html" class="relative px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)] flex items-center gap-2">
+                <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">
                     Scripts
-                    <span class="bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider animate-pulse">HOT</span>
                 </a>
             </nav>
         </div>
@@ -171,17 +212,19 @@
         </a>
     </div>
 
-    <!-- Промо-баннер для скриптов -->
-    <div class="scripts-banner flex flex-col md:flex-row items-center justify-between gap-6">
+    <!-- Обновленный баннер скриптов -->
+    <div class="banner-box flex-col md:flex-row">
         <div>
-            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Updated Daily</span>
-            <h3 class="text-2xl font-black text-white uppercase tracking-tight mt-3">Looking for Roblox Scripts?</h3>
+            <span class="inline-block text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-500/10 px-2.5 py-1 rounded-md border border-blue-500/20 mb-2">
+                Updated Daily
+            </span>
+            <h3 class="text-2xl font-black text-white uppercase tracking-tight">Looking for Roblox Scripts?</h3>
             <p class="text-sm text-gray-400 mt-1">Get 1,000+ keyless scripts for Blox Fruits, Rivals, Pet Simulator 99 & more.</p>
         </div>
         
-        <a href="/scripts.html" class="btn-glow px-7 py-3.5 rounded-xl text-white font-black uppercase tracking-wider flex items-center gap-2 whitespace-nowrap text-sm">
-            <span>Explore Scripts</span>
-            <span>→</span>
+        <a href="/scripts.html" class="btn-banner">
+            <span>Get Scripts</span>
+            <span class="arrow">→</span>
         </a>
     </div>
 
