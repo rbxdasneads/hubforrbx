@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Жестко фиксируем единый шрифт для всей страницы */
         body {
             font-family: Consolas, monospace !important;
             background-color: #050507;
@@ -114,9 +113,9 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        /* Полностью изолированная кнопка без дефолтных теней Tailwind */
+        /* Возвращена та самая крутая рабочая кнопка */
         .btn-download {
-            background-color: #1d4ed8 !important;
+            background: #2563eb !important;
             color: #ffffff !important;
             font-weight: 800 !important;
             text-transform: uppercase;
@@ -127,16 +126,13 @@
             width: 100%;
             text-align: center;
             text-decoration: none;
-            box-shadow: none !important;
             transition: all 0.25s ease !important;
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4) !important;
         }
-
         .btn-download:hover {
-            background-color: #2563eb !important;
+            background: #1d4ed8 !important;
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.6) !important;
-            border-color: #60a5fa;
         }
     </style>
 </head>
