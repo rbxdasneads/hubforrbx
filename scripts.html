@@ -156,7 +156,7 @@ function handleImageError(img) {
     img.src = '/images/solara.webp';
 }
 
-// Форматирование числа просмотров (например: 1250 -> 1.3k)
+// Форматирование числа просмотров
 function formatViews(views) {
     if (!views) return '0';
     if (views >= 1000) {
@@ -241,7 +241,7 @@ async function fetchScripts(query = '', page = 1, append = false) {
                 <div>
                     <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2 px-1">
                         <span>👁 ${viewsCount} views</span>
-                        <span class="text-gray-600">ScriptBlox</span>
+                        <span class="text-blue-400/80 font-bold tracking-wider text-[10px] uppercase">RBXHub</span>
                     </div>
                     <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" 
                             class="btn-copy">
