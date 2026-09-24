@@ -28,59 +28,55 @@
             transform: translateY(-4px);
         }
 
-        /* Четкие стили для кнопки копирования */
+        /* Элегантная тёмно-стеклянная кнопка */
         .btn-copy {
-            background-color: #2563eb !important;
-            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            color: #94a3b8 !important;
             font-weight: 700 !important;
             font-size: 0.75rem !important;
             text-transform: uppercase !important;
             letter-spacing: 0.05em !important;
-            padding: 12px 16px !important;
+            padding: 10px 16px !important;
             border-radius: 10px !important;
-            border: none !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
             cursor: pointer !important;
             width: 100% !important;
-            transition: all 0.2s ease-in-out !important;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+            transition: all 0.25s ease !important;
             display: block !important;
             text-align: center !important;
         }
 
         .btn-copy:hover {
-            background-color: #3b82f6 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important;
+            background: rgba(59, 130, 246, 0.1) !important;
+            color: #60a5fa !important;
+            border-color: rgba(59, 130, 246, 0.4) !important;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15) !important;
         }
 
-        .btn-copy:active {
-            transform: translateY(0) !important;
-        }
-
-        /* Состояние кнопки при успешном копировании */
         .btn-copy.copied {
-            background-color: #10b981 !important;
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4) !important;
+            background: rgba(16, 185, 129, 0.15) !important;
+            color: #34d399 !important;
+            border-color: rgba(16, 185, 129, 0.4) !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
         }
 
-        /* Кнопка "LOAD MORE" */
+        /* Кнопка "Load More" */
         .btn-load-more {
             background: #16161d;
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             color: #fff;
-            padding: 14px 32px;
+            padding: 12px 30px;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
         .btn-load-more:hover {
             background: #2563eb;
             border-color: #3b82f6;
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
             transform: translateY(-2px);
         }
     </style>
@@ -154,10 +150,19 @@ let currentPage = 1;
 let currentQuery = '';
 let searchTimeout = null;
 
-// Обработка битых картинок
+// Заглушка для битых картинок
 function handleImageError(img) {
     img.onerror = null;
     img.src = '/images/solara.webp';
+}
+
+// Форматирование числа просмотров (например: 1250 -> 1.3k)
+function formatViews(views) {
+    if (!views) return '0';
+    if (views >= 1000) {
+        return (views / 1000).toFixed(1) + 'k';
+    }
+    return views;
 }
 
 // Загрузка скриптов
@@ -205,20 +210,26 @@ async function fetchScripts(query = '', page = 1, append = false) {
                 ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">KEYLESS</span>`
                 : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">KEY SYSTEM</span>`;
 
+            const verifiedBadge = item.verified 
+                ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">VERIFIED</span>` 
+                : '';
+
             const gameName = item.game?.name || 'Roblox Game';
             const scriptTitle = item.title || 'Untitled Script';
+            const viewsCount = formatViews(item.views);
 
             const card = document.createElement('div');
             card.className = 'glass flex flex-col justify-between h-full';
             card.innerHTML = `
                 <div>
                     <div class="flex items-center gap-4 mb-4">
-                        <img src="${imageUrl}" onerror="handleImageError(this)" class="h-14 w-14 rounded-xl object-cover bg-gray-900 border border-gray-800">
+                        <img src="${imageUrl}" onerror="handleImageError(this)" class="h-14 w-14 rounded-xl object-cover bg-gray-900 border border-gray-800 shrink-0">
                         <div class="overflow-hidden">
                             <h3 class="text-base font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
-                            <div class="flex items-center gap-2 mt-1">
-                                <span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 truncate">${gameName}</span>
+                            <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                                <span class="text-[10px] text-gray-400 font-bold bg-gray-800/50 px-2 py-0.5 rounded border border-gray-700/50 truncate max-w-[120px]">${gameName}</span>
                                 ${keyBadge}
+                                ${verifiedBadge}
                             </div>
                         </div>
                     </div>
@@ -227,15 +238,20 @@ async function fetchScripts(query = '', page = 1, append = false) {
                     </p>
                 </div>
                 
-                <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" 
-                        class="btn-copy">
-                    Copy Script
-                </button>
+                <div>
+                    <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2 px-1">
+                        <span>👁 ${viewsCount} views</span>
+                        <span class="text-gray-600">ScriptBlox</span>
+                    </div>
+                    <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" 
+                            class="btn-copy">
+                        Copy Script
+                    </button>
+                </div>
             `;
             container.appendChild(card);
         });
 
-        // Показываем кнопку "Load More", если подгрузилось 20 скриптов
         if (scripts.length >= 20) {
             loadMoreBtn.style.display = 'inline-block';
             loadMoreBtn.innerText = 'Load More Scripts';
@@ -251,12 +267,12 @@ async function fetchScripts(query = '', page = 1, append = false) {
     }
 }
 
-// Функция копирования с визуальной обратной связью на кнопке
+// Функция копирования с анимированной обратной связью
 function copyToClipboard(btnElement, encodedScript) {
     const scriptText = decodeURIComponent(encodedScript);
     navigator.clipboard.writeText(scriptText).then(() => {
         const originalText = btnElement.innerText;
-        btnElement.innerText = '✓ COPIED!';
+        btnElement.innerText = '✓ COPIED TO CLIPBOARD';
         btnElement.classList.add('copied');
 
         setTimeout(() => {
@@ -268,7 +284,7 @@ function copyToClipboard(btnElement, encodedScript) {
     });
 }
 
-// Загрузка следующей страницы
+// Подгрузка следующей страницы
 function loadMoreScripts() {
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.innerText = 'Loading...';
@@ -276,7 +292,7 @@ function loadMoreScripts() {
     fetchScripts(currentQuery, currentPage, true);
 }
 
-// Поиск
+// Живой поиск
 document.getElementById('search-input').addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -286,7 +302,7 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     }, 400);
 });
 
-// Запуск при старте
+// Автозапуск
 fetchScripts();
 </script>
 
