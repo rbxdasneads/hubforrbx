@@ -323,36 +323,34 @@
 
 <div class="max-w-6xl mx-auto">
     <!-- Шапка сайта -->
-    <header class="site-header">
-        <!-- Навигация -->
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <a href="/" class="nav-btn nav-btn-default">Exploits</a>
-            <a href="/scripts.html" class="nav-btn nav-btn-active">Scripts</a>
-        </div>
+    <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
+    <!-- Навигация -->
+    <div class="flex items-center gap-6">
+        <nav class="flex gap-2 bg-[#0f0f14] p-1.5 rounded-xl border border-white/5">
+            <a href="/" class="px-5 py-2 rounded-lg text-gray-400 font-bold text-sm hover:text-white transition-all">
+                Exploits
+            </a>
+            <a href="/scripts.html" class="px-5 py-2 rounded-lg bg-blue-600/20 border border-blue-500/50 text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all">
+                Scripts
+            </a>
+        </nav>
+    </div>
 
-        <!-- Логотип -->
-        <div style="text-align: center;">
-            <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tighter italic" style="margin: 0;">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">RBX</span><span class="text-blue-500">HUB</span>
+    <!-- Логотип -->
+    <div class="text-center">
+        <a href="/" class="inline-block">
+            <h1 class="text-4xl font-black uppercase tracking-tighter italic">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">HUB</span>
             </h1>
-        </div>
+        </a>
+    </div>
 
-        <!-- Плашка Auto Updating -->
-        <div>
-            <div class="badge-auto-update">
-                <span class="pulse-dot">
-                    <span class="pulse-dot-ring"></span>
-                    <span class="pulse-dot-core"></span>
-                </span>
-                <span>Auto Updating</span>
-            </div>
+    <!-- Статус для скриптов -->
+    <div class="flex justify-end">
+        <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20 tracking-wider">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            AUTO UPDATING
         </div>
-    </header>
-
-    <!-- Заголовок страницы -->
-    <div class="text-center mb-8">
-        <h2 class="text-3xl font-black text-white uppercase tracking-tight">Latest Roblox Scripts</h2>
-        <p class="text-sm text-gray-500 mt-1">Auto-updated Roblox scripts & working hubs</p>
     </div>
 
     <!-- Панель Поиска и Сортировки -->
