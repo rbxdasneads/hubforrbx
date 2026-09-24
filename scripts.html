@@ -22,6 +22,7 @@
             padding: 20px;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
             position: relative;
+            overflow: hidden !important;
         }
         .glass-card:hover {
             background: #11131a !important; 
@@ -41,30 +42,6 @@
             border-color: rgba(59, 130, 246, 0.6);
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.12);
             outline: none;
-        }
-
-        /* Выпадающий список сортировки */
-        .sort-select {
-            background-color: #0d0e12;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #d1d5db;
-            appearance: none;
-            -webkit-appearance: none;
-            transition: all 0.2s ease;
-        }
-        .sort-select:hover {
-            border-color: rgba(255, 255, 255, 0.18);
-            color: #ffffff;
-        }
-        .sort-select:focus {
-            border-color: rgba(59, 130, 246, 0.6);
-            outline: none;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.12);
-        }
-        .sort-select option {
-            background-color: #0d0e12;
-            color: #ffffff;
-            padding: 10px;
         }
 
         /* Кнопка Copy Script */
@@ -153,25 +130,43 @@
         <p class="text-sm text-gray-500 mt-1">Auto-updated Roblox scripts & working hubs</p>
     </div>
 
-    <!-- Панель Поиска и Сортировки -->
+    <!-- Панель Поиска и Кастомной Сортировки -->
     <div class="flex flex-col sm:flex-row gap-3 max-w-3xl mx-auto mb-10">
         <!-- Поле Поиска -->
         <div class="relative flex-1">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                <svg style="width:16px; height:16px;" class="text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
             <input type="text" id="search-input" placeholder="Search script or game name..." 
-                   class="w-full search-input rounded-xl px-4 py-3 text-sm placeholder-gray-500">
+                   class="w-full search-input rounded-xl pl-10 pr-4 py-3 text-sm placeholder-gray-500">
         </div>
 
-        <!-- Кастомный Выпадающий Список Сортировки -->
-        <div class="relative w-full sm:w-52">
-            <select id="sort-select" class="w-full sort-select rounded-xl px-4 py-3 text-sm cursor-pointer pr-10">
-                <option value="latest">Sort: Latest</option>
-                <option value="views-desc">Sort: Most Viewed</option>
-                <option value="views-asc">Sort: Least Viewed</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-gray-400">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
-                </svg>
+        <!-- Кастомное Выпадающее Меню Сортировки -->
+        <div class="relative w-full sm:w-56" id="custom-sort-dropdown">
+            <button type="button" id="sort-dropdown-btn" onclick="toggleSortDropdown()" 
+                    class="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-gray-200 bg-[#0d0e12] border border-white/10 rounded-xl hover:border-blue-500/40 hover:text-white transition-all duration-200 shadow-lg">
+                <span id="sort-selected-text" class="truncate flex items-center gap-2">
+                    <svg style="width:14px; height:14px;" class="text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+                    Sort: Latest
+                </span>
+                <svg id="sort-arrow" style="width:14px; height:14px; transition: transform 0.2s ease;" class="text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            
+            <!-- Выпадающее меню -->
+            <div id="sort-dropdown-menu" 
+                 class="hidden absolute right-0 left-0 mt-2 py-1.5 bg-[#0e1017] border border-blue-500/30 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl z-50 transition-all duration-200 opacity-0 scale-95 transform origin-top">
+                <div onclick="selectSort('latest', 'Latest')" class="sort-option bg-blue-500/10 text-white px-4 py-2.5 text-xs font-bold hover:bg-blue-600/20 cursor-pointer transition flex items-center justify-between">
+                    <span>Sort: Latest</span>
+                    <span class="check-mark text-blue-400 font-bold">✓</span>
+                </div>
+                <div onclick="selectSort('views-desc', 'Most Viewed')" class="sort-option text-gray-300 px-4 py-2.5 text-xs font-bold hover:text-white hover:bg-blue-600/20 cursor-pointer transition flex items-center justify-between">
+                    <span>Sort: Most Viewed</span>
+                    <span class="check-mark hidden text-blue-400 font-bold">✓</span>
+                </div>
+                <div onclick="selectSort('views-asc', 'Least Viewed')" class="sort-option text-gray-300 px-4 py-2.5 text-xs font-bold hover:text-white hover:bg-blue-600/20 cursor-pointer transition flex items-center justify-between">
+                    <span>Sort: Least Viewed</span>
+                    <span class="check-mark hidden text-blue-400 font-bold">✓</span>
+                </div>
             </div>
         </div>
     </div>
@@ -223,9 +218,75 @@ function formatViews(views) {
     return num.toString();
 }
 
+// Переключение выпадения кастомного меню
+function toggleSortDropdown() {
+    const menu = document.getElementById('sort-dropdown-menu');
+    const arrow = document.getElementById('sort-arrow');
+    const isHidden = menu.classList.contains('hidden');
+    
+    if (isHidden) {
+        menu.classList.remove('hidden');
+        setTimeout(() => {
+            menu.classList.remove('opacity-0', 'scale-95');
+            menu.classList.add('opacity-100', 'scale-100');
+        }, 10);
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+    } else {
+        closeSortDropdown();
+    }
+}
+
+function closeSortDropdown() {
+    const menu = document.getElementById('sort-dropdown-menu');
+    const arrow = document.getElementById('sort-arrow');
+    if (!menu) return;
+    menu.classList.remove('opacity-100', 'scale-100');
+    menu.classList.add('opacity-0', 'scale-95');
+    if (arrow) arrow.style.transform = 'rotate(0deg)';
+    setTimeout(() => {
+        menu.classList.add('hidden');
+    }, 200);
+}
+
+function selectSort(val, label) {
+    currentSort = val;
+    
+    // Обновляем текст кнопки
+    document.getElementById('sort-selected-text').innerHTML = `
+        <svg style="width:14px; height:14px;" class="text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+        Sort: ${label}
+    `;
+    
+    // Подсветка активной опции
+    const options = document.querySelectorAll('.sort-option');
+    options.forEach(opt => {
+        const isMatch = opt.getAttribute('onclick').includes(`'${val}'`);
+        const check = opt.querySelector('.check-mark');
+        if (isMatch) {
+            opt.classList.add('bg-blue-500/10', 'text-white');
+            opt.classList.remove('text-gray-300');
+            if (check) check.classList.remove('hidden');
+        } else {
+            opt.classList.remove('bg-blue-500/10', 'text-white');
+            opt.classList.add('text-gray-300');
+            if (check) check.classList.add('hidden');
+        }
+    });
+
+    closeSortDropdown();
+    renderScripts();
+}
+
+// Закрытие меню при клике вне его
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('custom-sort-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        closeSortDropdown();
+    }
+});
+
 // Уникальное динамическое описание для каждого скрипта
 function getScriptDescription(item) {
-    // 1. Проверяем, есть ли реальное описание от автора в API
     if (item.features && typeof item.features === 'string' && item.features.trim().length > 3) {
         return item.features.trim();
     }
@@ -236,16 +297,12 @@ function getScriptDescription(item) {
         return item.description.trim();
     }
 
-    // 2. Если авторы ScriptBlox ничего не заполнили (что происходит часто), 
-    // формируем индивидуальное описание на основе названия конкретного скрипта и игры
     const rawTitle = item.title || 'Roblox Script';
     const gameName = item.game?.name || 'Roblox';
-    
-    // Очищаем заголовок отлишних спецсимволов для чистой читаемости
     const cleanTitle = rawTitle.replace(/\[.*?\]/g, '').replace(/\|/g, '').trim();
 
     if (item.key === false) {
-        return `Free keyless script for ${gameName}. Features ${cleanTitle || 'custom GUI'} with fast execution and instant keyless access.`;
+        return `Free keyless script for ${gameName}. Features ${cleanTitle || 'custom GUI'} with fast execution and instant access.`;
     }
     
     return `${cleanTitle || 'Script Hub'} designed for ${gameName}. Updated script features and player enhancements for execution.`;
@@ -279,11 +336,11 @@ function renderScripts() {
 
         const isKeyless = item.key === false;
         const keyBadge = isKeyless 
-            ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded-md border border-green-500/20">KEYLESS</span>`
-            : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded-md border border-yellow-500/20">KEY SYSTEM</span>`;
+            ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded-md border border-green-500/20 shrink-0">KEYLESS</span>`
+            : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded-md border border-yellow-500/20 shrink-0">KEY SYSTEM</span>`;
 
         const verifiedBadge = item.verified 
-            ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20">VERIFIED</span>` 
+            ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20 shrink-0">VERIFIED</span>` 
             : '';
 
         const gameName = item.game?.name || 'Roblox Game';
@@ -292,13 +349,13 @@ function renderScripts() {
         const scriptDesc = getScriptDescription(item);
 
         const card = document.createElement('div');
-        card.className = 'glass-card flex flex-col justify-between h-full';
+        card.className = 'glass-card flex flex-col justify-between h-full overflow-hidden w-full';
         card.innerHTML = `
-            <div>
-                <div class="flex items-center gap-3.5 mb-4">
+            <div class="min-w-0">
+                <div class="flex items-start gap-3 mb-3.5 min-w-0">
                     <img src="${imageUrl}" onerror="handleImageError(this)" class="h-12 w-12 rounded-xl object-cover bg-gray-900 border border-gray-800 shrink-0">
-                    <div class="overflow-hidden">
-                        <h3 class="text-sm font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
+                    <div class="min-w-0 flex-1">
+                        <h3 class="text-sm font-bold text-white truncate w-full" title="${scriptTitle}">${scriptTitle}</h3>
                         <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
                             <span class="text-[10px] text-gray-400 font-semibold bg-gray-800/60 px-2 py-0.5 rounded-md border border-gray-700/50 truncate max-w-[110px]">${gameName}</span>
                             ${keyBadge}
@@ -306,12 +363,12 @@ function renderScripts() {
                         </div>
                     </div>
                 </div>
-                <p class="text-xs text-gray-400/90 line-clamp-3 mb-6 leading-relaxed">
+                <p class="text-xs text-gray-400/90 line-clamp-3 mb-5 leading-relaxed break-words">
                     ${scriptDesc}
                 </p>
             </div>
             
-            <div>
+            <div class="mt-auto">
                 <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2.5 px-1">
                     <span class="flex items-center gap-1.5"><span class="text-gray-400">👁</span> ${viewsCount} views</span>
                     <span class="text-blue-400/90 font-bold tracking-wider text-[10px] uppercase">RBXHub</span>
@@ -403,12 +460,6 @@ document.getElementById('search-input').addEventListener('input', (e) => {
         currentPage = 1;
         fetchScripts(currentQuery, currentPage, false);
     }, 400);
-});
-
-// Сортировка
-document.getElementById('sort-select').addEventListener('change', (e) => {
-    currentSort = e.target.value;
-    renderScripts();
 });
 
 // Инициализация
