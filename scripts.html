@@ -22,163 +22,79 @@
             outline: none !important;
         }
 
-        /* Идеальная шапка сайта */
-        <style>
-    /* Шапка сайта */
-    .header-nav {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        padding: 24px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 48px;
-    }
-    .nav-toggle {
-        display: inline-flex;
-        background: #0f0f14;
-        padding: 4px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        gap: 4px;
-    }
-    .nav-btn {
-        padding: 8px 20px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 700;
-        color: #94a3b8;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        border: 1px solid transparent;
-    }
-    .nav-btn.active {
-        background: rgba(37, 99, 235, 0.2);
-        color: #ffffff;
-        border-color: rgba(59, 130, 246, 0.5);
-        box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
-    }
-    .nav-btn:hover:not(.active) {
-        color: #ffffff;
-    }
-    .logo-text {
-        font-size: 36px;
-        font-weight: 900;
-        text-transform: uppercase;
-        font-style: italic;
-        letter-spacing: -0.05em;
-        color: #ffffff;
-        margin: 0;
-    }
-    .logo-text span {
-        color: #3b82f6;
-        filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
-    }
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.05em;
-        color: #34d399;
-        background: rgba(16, 185, 129, 0.1);
-        padding: 8px 16px;
-        border-radius: 20px;
-        border: 1px solid rgba(16, 185, 129, 0.25);
-        white-space: nowrap;
-    }
-    .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: #34d399;
-        box-shadow: 0 0 8px #34d399;
-    }
-        .site-header {
-            display: flex;
+        /* Шапка сайта */
+        .header-nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            justify-content: space-between;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 40px;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 48px;
         }
-
-        .nav-btn {
+        .nav-toggle {
+            display: inline-flex;
+            background: #0f0f14;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 4px;
+        }
+        .nav-btn-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             height: 40px;
             padding: 0 20px;
-            border-radius: 12px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 700;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
+            color: #94a3b8;
             text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
-        .nav-btn-default {
-            background: #0b0d14;
-            border: 1px solid #161922;
-            color: #d1d5db;
-        }
-        .nav-btn-default:hover {
-            background: #12141c;
+        .nav-btn-link.active {
+            background: rgba(37, 99, 235, 0.2);
             color: #ffffff;
-            border-color: #272a38;
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
         }
-        .nav-btn-active {
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(59, 130, 246, 0.5);
+        .nav-btn-link:hover:not(.active) {
             color: #ffffff;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
         }
-
-        /* Плашка AUTO UPDATING */
-        .badge-auto-update {
+        .logo-text {
+            font-size: 36px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            color: #ffffff;
+            margin: 0;
+        }
+        .logo-text span {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+        .status-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            height: 40px;
-            padding: 0 16px;
-            border-radius: 12px;
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            color: #34d399;
-            font-size: 0.75rem;
+            font-size: 11px;
             font-weight: 800;
             letter-spacing: 0.05em;
-            text-transform: uppercase;
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
             white-space: nowrap;
         }
-        .pulse-dot {
-            position: relative;
-            display: flex;
+        .status-dot {
             width: 8px;
             height: 8px;
-        }
-        .pulse-dot-ring {
-            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-            position: absolute;
-            display: inline-flex;
-            height: 100%;
-            width: 100%;
             border-radius: 50%;
             background-color: #34d399;
-            opacity: 0.75;
-        }
-        .pulse-dot-core {
-            position: relative;
-            display: inline-flex;
-            border-radius: 50%;
-            height: 8px;
-            width: 8px;
-            background-color: #34d399;
-        }
-
-        @keyframes ping {
-            75%, 100% {
-                transform: scale(2);
-                opacity: 0;
-            }
+            box-shadow: 0 0 8px #34d399;
         }
 
         /* Блок поиска и сортировки в одну строчку */
@@ -215,7 +131,7 @@
             border-radius: 12px !important;
             color: #ffffff !important;
             font-size: 0.875rem !important;
-            padding-left: 46px !important; /* Гарантирует отступ от лупы! */
+            padding-left: 46px !important;
             padding-right: 16px !important;
             transition: all 0.2s ease !important;
         }
@@ -224,10 +140,10 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.1) !important;
         }
 
-        /* Кнопка сортировки (компактная) */
+        /* Кнопка сортировки */
         .sort-dropdown-container {
             position: relative;
-            width: 200px; /* Ограниченная ширина */
+            width: 200px;
             flex-shrink: 0;
         }
         .sort-btn {
@@ -265,8 +181,6 @@
             border-radius: 12px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(59, 130, 246, 0.08) !important;
             z-index: 100;
-            
-            /* Анимация */
             opacity: 0;
             transform: translateY(-8px) scale(0.96);
             pointer-events: none;
@@ -278,7 +192,6 @@
             transform: translateY(0) scale(1);
             pointer-events: auto;
         }
-
         .sort-option {
             display: flex;
             align-items: center;
@@ -318,7 +231,6 @@
             box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15) !important; 
             transform: translateY(-2px);
         }
-
         .card-thumb-wrapper {
             width: 50px !important;
             height: 50px !important;
@@ -338,7 +250,6 @@
             object-fit: cover !important;
             display: block !important;
         }
-
         .btn-copy {
             background: rgba(255, 255, 255, 0.03) !important;
             color: #a1a1aa !important;
@@ -367,7 +278,6 @@
             border-color: rgba(16, 185, 129, 0.4) !important;
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
         }
-
         .btn-load-more {
             background: #0b0d14;
             border: 1px solid rgba(59, 130, 246, 0.3);
@@ -395,30 +305,29 @@
 <div class="max-w-6xl mx-auto">
     <!-- Шапка сайта -->
     <header class="header-nav">
-    <div style="display: flex; align-items: center;">
-        <div class="nav-toggle">
-            <a href="/" class="nav-btn">Exploits</a>
-            <a href="/scripts.html" class="nav-btn active">Scripts</a>
+        <div style="display: flex; align-items: center;">
+            <div class="nav-toggle">
+                <a href="/" class="nav-btn-link">Exploits</a>
+                <a href="/scripts.html" class="nav-btn-link active">Scripts</a>
+            </div>
         </div>
-    </div>
 
-    <div style="text-align: center;">
-        <a href="/" style="text-decoration: none;">
-            <h1 class="logo-text">RBX<span>HUB</span></h1>
-        </a>
-    </div>
-
-    <div style="display: flex; justify-content: flex-end;">
-        <div class="status-badge">
-            <span class="status-dot"></span>
-            AUTO UPDATING
+        <div style="text-align: center;">
+            <a href="/" style="text-decoration: none;">
+                <h1 class="logo-text">RBX<span>HUB</span></h1>
+            </a>
         </div>
-    </div>
-</header>
+
+        <div style="display: flex; justify-content: flex-end;">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                AUTO UPDATING
+            </div>
+        </div>
+    </header>
 
     <!-- Панель Поиска и Сортировки -->
     <div class="controls-wrapper">
-        <!-- Поле поиска -->
         <div class="search-box-container">
             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -426,7 +335,6 @@
             <input type="text" id="search-input" placeholder="Search script or game name..." class="search-input">
         </div>
 
-        <!-- Компактная Сортировка -->
         <div class="sort-dropdown-container" id="custom-sort-dropdown">
             <button type="button" id="sort-dropdown-btn" onclick="toggleSortDropdown()" class="sort-btn">
                 <span id="sort-selected-text" class="truncate flex items-center gap-2">
@@ -440,7 +348,6 @@
                 </svg>
             </button>
             
-            <!-- Выпадающий список -->
             <div id="sort-dropdown-menu" class="sort-menu-dropdown">
                 <div onclick="selectSort('latest', 'Latest')" class="sort-option active-option">
                     <span>Latest</span>
