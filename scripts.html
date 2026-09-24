@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBXHub | Latest Roblox Scripts</title>
+    
+    <title>RBXHub | Free Roblox Scripts & Hubs</title>
+    <meta name="description" content="Browse and copy the latest Roblox scripts, keyless hubs, and exploits auto-updated in real-time.">
+    <link rel="canonical" href="https://rbxhub.org/scripts.html">
+
+    <link rel="icon" type="image/png" href="/favicon-v2.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+
     <link rel="stylesheet" href="/output.css">
     <style>
         .glass { 
@@ -19,83 +26,205 @@
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.15) !important; 
             transform: translateY(-4px);
         }
+        /* Всплывающее уведомление */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #10b981;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 50;
+            bottom: 30px;
+            right: 30px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
+
 <body class="p-6 bg-[#050507] text-slate-300 font-[Consolas]">
 
+<!-- Тост-уведомление -->
+<div id="toast">Script copied to clipboard!</div>
+
 <div class="max-w-6xl mx-auto">
-    <!-- Шапка -->
+    <!-- Шапка сайта -->
     <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
         <div class="flex items-center gap-6">
             <nav class="flex gap-3">
-                <a href="/" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500">Exploits</a>
-                <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-blue-500 bg-[#16161d] text-white font-bold">Scripts</a>
+                <a href="/" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.3)]">Exploits</a>
+                <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-blue-500 bg-[#16161d] text-white font-bold shadow-[0_0_10px_rgba(59,130,246,0.3)]">Scripts</a>
             </nav>
         </div>
+
         <div class="text-center">
             <h1 class="text-5xl font-black uppercase tracking-tighter italic">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">RBX</span><span class="text-blue-500">HUB</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">RBX</span><span class="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]">HUB</span>
             </h1>
         </div>
-        <div></div>
+
+        <div class="flex justify-end">
+            <div class="flex items-center gap-2 text-xs font-bold text-green-500 bg-green-500/5 px-3 py-1.5 rounded-full border border-green-500/20">
+                <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>AUTO UPDATING
+            </div>
+        </div>
     </header>
 
-    <div class="text-center mb-10">
-        <h2 class="text-3xl font-black text-white uppercase tracking-tight">Latest Scripts</h2>
-        <p class="text-sm text-gray-500 mt-2">Auto-updated Roblox scripts & hubs</p>
+    <!-- Заголовок и поиск -->
+    <div class="text-center mb-10 max-w-xl mx-auto">
+        <h2 class="text-3xl font-black text-white uppercase tracking-tight">Latest Roblox Scripts</h2>
+        <p class="text-sm text-gray-500 mt-2 mb-6">Auto-updated Roblox scripts & working hubs</p>
+
+        <!-- Поисковая строка -->
+        <div class="relative">
+            <input type="text" id="search-input" placeholder="Search script or game..." 
+                   class="w-full bg-[#0f0f14] border border-gray-800 rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all shadow-inner">
+        </div>
     </div>
 
-    <!-- Контейнер, куда скрипт будет подгружать карточки -->
+    <!-- Контейнер для карточек -->
     <div id="scripts-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        <p class="text-center text-gray-500 col-span-3">Loading latest scripts...</p>
+        <div class="col-span-3 text-center py-12 text-gray-500">
+            <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-500 border-r-transparent align-[-0.125em] mb-4"></div>
+            <p>Fetching latest scripts...</p>
+        </div>
     </div>
+
+    <!-- Подвал сайта -->
+    <footer class="mt-20 py-8 border-t border-gray-800 text-center">
+        <div class="flex justify-center gap-6 text-sm text-gray-500 mb-2">
+            <a href="legal.html" class="hover:text-white transition">Terms of Use</a>
+            <a href="legal.html" class="hover:text-white transition">Privacy</a>
+            <a href="legal.html" class="hover:text-white transition">Guidelines</a>
+            <a href="legal.html" class="hover:text-white transition">Help</a>
+        </div>
+        <p class="text-xs text-gray-600">© 2026 RBXHub</p>
+    </footer>
 </div>
 
 <script>
-// Функция автозагрузки скриптов
-async function loadScripts() {
+let searchTimeout = null;
+
+// Функция для обработки битых картинок
+function handleImageError(img) {
+    img.onerror = null;
+    img.src = '/images/solara.webp'; // Резервная картинка
+}
+
+// Показ уведомления при копировании
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.innerText = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
+}
+
+// Загрузка скриптов
+async function fetchScripts(query = '') {
     const container = document.getElementById('scripts-container');
+    
+    let url = 'https://scriptblox.com/api/script/fetch?page=1';
+    if (query.trim() !== '') {
+        url = `https://scriptblox.com/api/script/search?q=${encodeURIComponent(query)}&page=1`;
+    }
+
     try {
-        // Запрашиваем свежие скрипты с API ScriptBlox
-        const response = await fetch('https://scriptblox.com/api/script/fetch?page=1');
+        const response = await fetch(url);
         const data = await response.json();
         
-        container.innerHTML = ''; // Очищаем текст загрузки
+        container.innerHTML = '';
 
-        data.result.scripts.forEach(script => {
-            // Формируем ссылку на картинку игры
-            const imageUrl = script.game.imageUrl 
-                ? (script.game.imageUrl.startsWith('http') ? script.game.imageUrl : 'https://scriptblox.com' + script.game.imageUrl)
-                : '/images/solara.webp';
+        const scripts = data.result?.scripts || data.result?.matchedScripts || [];
+
+        if (scripts.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-12">No scripts found.</p>';
+            return;
+        }
+
+        scripts.forEach(item => {
+            // Исправление ссылок на изображения
+            let imageUrl = '/images/solara.webp';
+            if (item.game && item.game.imageUrl) {
+                if (item.game.imageUrl.startsWith('http')) {
+                    imageUrl = item.game.imageUrl;
+                } else {
+                    imageUrl = 'https://scriptblox.com' + item.game.imageUrl;
+                }
+            }
+
+            // Формируем статус ключа и верификации
+            const isKeyless = item.key === false;
+            const keyBadge = isKeyless 
+                ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">KEYLESS</span>`
+                : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">KEY SYSTEM</span>`;
+
+            const gameName = item.game?.name || 'Roblox Game';
+            const scriptTitle = item.title || 'Untitled Script';
 
             const card = document.createElement('div');
-            card.className = 'glass p-6 flex flex-col justify-between';
+            card.className = 'glass flex flex-col justify-between h-full';
             card.innerHTML = `
                 <div>
                     <div class="flex items-center gap-4 mb-4">
-                        <img src="${imageUrl}" class="h-14 w-14 rounded-xl object-cover" onerror="this.src='/images/solara.webp'">
-                        <div>
-                            <h3 class="text-lg font-bold text-white line-clamp-1">${script.title}</h3>
-                            <span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">${script.game.name}</span>
+                        <img src="${imageUrl}" onerror="handleImageError(this)" class="h-14 w-14 rounded-xl object-cover bg-gray-900 border border-gray-800">
+                        <div class="overflow-hidden">
+                            <h3 class="text-base font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 truncate">${gameName}</span>
+                                ${keyBadge}
+                            </div>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-400 line-clamp-3 mb-4">${script.features || 'No description provided.'}</p>
+                    <p class="text-xs text-gray-400 line-clamp-3 mb-6 leading-relaxed">
+                        ${item.features || 'Universal script hub with auto-farm and player enhancements.'}
+                    </p>
                 </div>
-                <button onclick="navigator.clipboard.writeText(\`${script.script.replace(/`/g, '\\`')}\`); alert('Script copied to clipboard!');" 
-                        class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-sm transition">
+                
+                <button onclick="copyToClipboard(\`${encodeURIComponent(item.script || '')}\`)" 
+                        class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-md hover:shadow-blue-500/20">
                     Copy Script
                 </button>
             `;
             container.appendChild(card);
         });
+
     } catch (error) {
-        console.error('Error fetching scripts:', error);
-        container.innerHTML = '<p class="text-center text-red-500 col-span-3">Failed to load scripts. Please try again later.</p>';
+        console.error('Error:', error);
+        container.innerHTML = '<p class="text-center text-red-500 col-span-3 py-12">Failed to load scripts. Check your connection.</p>';
     }
 }
 
-// Запускаем при загрузке страницы
-loadScripts();
+// Функция копирования текста
+function copyToClipboard(encodedScript) {
+    const scriptText = decodeURIComponent(encodedScript);
+    navigator.clipboard.writeText(scriptText).then(() => {
+        showToast('Script copied to clipboard!');
+    }).catch(err => {
+        console.error('Copy failed:', err);
+    });
+}
+
+// Поиск с задержкой (Debounce)
+document.getElementById('search-input').addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        fetchScripts(e.target.value);
+    }, 400);
+});
+
+// Запуск при открытии
+fetchScripts();
 </script>
 
 </body>
