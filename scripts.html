@@ -14,29 +14,44 @@
     <link rel="stylesheet" href="/output.css">
     
     <style>
-        .glass { 
-            background: #0f0f14 !important; 
-            border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        /* Современные стеклянные карточки */
+        .glass-card { 
+            background: #0d0e12 !important; 
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
             border-radius: 16px;
-            padding: 20px;
-            transition: all 0.35s ease !important;
+            padding: 22px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            position: relative;
+            overflow: hidden;
         }
-        .glass:hover {
-            background: #16161d !important; 
-            border-color: rgba(59, 130, 246, 0.5) !important; 
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15) !important; 
+        .glass-card:hover {
+            background: #12141c !important; 
+            border-color: rgba(59, 130, 246, 0.4) !important; 
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2) !important; 
             transform: translateY(-4px);
         }
 
-        /* Элегантная тёмно-стеклянная кнопка */
+        /* Поля ввода и селекторы */
+        .input-glow {
+            background: #0d0e12;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.25s ease;
+        }
+        .input-glow:focus {
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+            outline: none;
+        }
+
+        /* Кнопка "Copy Script" */
         .btn-copy {
             background: rgba(255, 255, 255, 0.03) !important;
-            color: #94a3b8 !important;
+            color: #a1a1aa !important;
             font-weight: 700 !important;
             font-size: 0.75rem !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.05em !important;
-            padding: 10px 16px !important;
+            letter-spacing: 0.06em !important;
+            padding: 11px 16px !important;
             border-radius: 10px !important;
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
             cursor: pointer !important;
@@ -47,7 +62,7 @@
         }
 
         .btn-copy:hover {
-            background: rgba(59, 130, 246, 0.1) !important;
+            background: rgba(59, 130, 246, 0.12) !important;
             color: #60a5fa !important;
             border-color: rgba(59, 130, 246, 0.4) !important;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.15) !important;
@@ -62,27 +77,28 @@
 
         /* Кнопка "Load More" */
         .btn-load-more {
-            background: #16161d;
+            background: #12141c;
             border: 1px solid rgba(59, 130, 246, 0.3);
             color: #fff;
-            padding: 12px 30px;
+            padding: 12px 32px;
             border-radius: 12px;
             font-weight: 700;
             font-size: 0.85rem;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.25s ease;
         }
         .btn-load-more:hover {
             background: #2563eb;
             border-color: #3b82f6;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
             transform: translateY(-2px);
         }
 
-        /* Стили выпадающего списка */
+        /* Кастомный карет / опции селектора */
         select option {
-            background-color: #0f0f14;
+            background-color: #0d0e12;
             color: #ffffff;
         }
     </style>
@@ -92,11 +108,11 @@
 
 <div class="max-w-6xl mx-auto">
     <!-- Шапка сайта -->
-    <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800 mb-12">
+    <header class="grid grid-cols-3 items-center py-6 border-b border-gray-800/80 mb-12">
         <div class="flex items-center gap-6">
             <nav class="flex gap-3">
-                <a href="/" class="px-5 py-2 rounded-lg border border-gray-700 bg-[#0f0f14] text-white font-bold transition-all hover:bg-[#16161d] hover:border-blue-500">Exploits</a>
-                <a href="/scripts.html" class="px-5 py-2 rounded-lg border border-blue-500 bg-[#16161d] text-white font-bold">Scripts</a>
+                <a href="/" class="px-5 py-2 rounded-xl border border-gray-800 bg-[#0d0e12] text-gray-300 font-bold text-sm transition-all hover:bg-[#12141c] hover:text-white hover:border-gray-700">Exploits</a>
+                <a href="/scripts.html" class="px-5 py-2 rounded-xl border border-blue-500/50 bg-blue-500/10 text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.15)]">Scripts</a>
             </nav>
         </div>
 
@@ -107,27 +123,27 @@
         </div>
 
         <div class="flex justify-end">
-            <div class="flex items-center gap-2 text-xs font-bold text-green-500 bg-green-500/5 px-3 py-1.5 rounded-full border border-green-500/20">
-                <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>AUTO UPDATING
+            <div class="flex items-center gap-2 text-xs font-bold text-green-400 bg-green-500/10 px-3.5 py-1.5 rounded-full border border-green-500/20 shadow-sm">
+                <span class="h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>AUTO UPDATING
             </div>
         </div>
     </header>
 
-    <!-- Заголовок и блоки Поиска/Сортировки -->
+    <!-- Заголовок и Блок Поиска/Сортировки -->
     <div class="text-center mb-10 max-w-2xl mx-auto">
         <h2 class="text-3xl font-black text-white uppercase tracking-tight">Latest Roblox Scripts</h2>
-        <p class="text-sm text-gray-500 mt-2 mb-6">Auto-updated Roblox scripts & working hubs</p>
+        <p class="text-sm text-gray-500 mt-2 mb-8">Auto-updated Roblox scripts & working hubs</p>
 
-        <!-- Поиск и Сортировка -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="relative sm:col-span-2">
-                <input type="text" id="search-input" placeholder="Search script or game..." 
-                       class="w-full bg-[#0f0f14] border border-gray-800 rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all shadow-inner">
+        <!-- Объединенная Панель Управления -->
+        <div class="flex flex-col sm:flex-row gap-3 p-2 rounded-2xl bg-[#090a0d] border border-gray-800/80 shadow-2xl">
+            <div class="relative flex-1">
+                <input type="text" id="search-input" placeholder="Search script or game name..." 
+                       class="w-full input-glow rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500">
             </div>
 
-            <div>
+            <div class="w-full sm:w-48">
                 <select id="sort-select" 
-                        class="w-full bg-[#0f0f14] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-all cursor-pointer">
+                        class="w-full input-glow rounded-xl px-3 py-2.5 text-sm text-white cursor-pointer">
                     <option value="latest">Sort: Latest</option>
                     <option value="views-desc">Sort: Most Viewed</option>
                     <option value="views-asc">Sort: Least Viewed</option>
@@ -137,9 +153,9 @@
     </div>
 
     <!-- Контейнер для карточек -->
-    <div id="scripts-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <div class="col-span-3 text-center py-12 text-gray-500">
-            <p>Fetching latest scripts...</p>
+    <div id="scripts-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="col-span-3 text-center py-16 text-gray-500">
+            <p class="animate-pulse">Fetching latest scripts from database...</p>
         </div>
     </div>
 
@@ -151,8 +167,8 @@
     </div>
 
     <!-- Подвал сайта -->
-    <footer class="mt-20 py-8 border-t border-gray-800 text-center">
-        <div class="flex justify-center gap-6 text-sm text-gray-500 mb-2">
+    <footer class="mt-20 py-8 border-t border-gray-800/80 text-center">
+        <div class="flex justify-center gap-6 text-sm text-gray-500 mb-3">
             <a href="legal.html" class="hover:text-white transition">Terms of Use</a>
             <a href="legal.html" class="hover:text-white transition">Privacy</a>
             <a href="legal.html" class="hover:text-white transition">Guidelines</a>
@@ -175,7 +191,7 @@ function handleImageError(img) {
     img.src = '/images/solara.webp';
 }
 
-// Форматирование числа просмотров (M, k, точно)
+// Форматирование чисел просмотров
 function formatViews(views) {
     const num = Number(views) || 0;
     if (num >= 1000000) {
@@ -187,17 +203,33 @@ function formatViews(views) {
     return num.toString();
 }
 
+// Умная генерация описания, чтобы предотвратить дубли
+function getScriptDescription(item) {
+    if (item.features && typeof item.features === 'string' && item.features.trim().length > 5) {
+        return item.features;
+    }
+    if (Array.isArray(item.features) && item.features.length > 0) {
+        return item.features.join(', ');
+    }
+    if (item.description && typeof item.description === 'string' && item.description.trim().length > 5) {
+        return item.description;
+    }
+
+    const gameName = item.game?.name || 'Roblox';
+    const isKeyless = item.key === false ? 'keyless' : 'feature-packed';
+    return `Working ${isKeyless} script hub for ${gameName} with auto-farm, custom GUI, and player enhancements.`;
+}
+
 // Отрисовка карточек с учётом выбранной сортировки
 function renderScripts() {
     const container = document.getElementById('scripts-container');
     container.innerHTML = '';
 
     if (allFetchedScripts.length === 0) {
-        container.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-12">No scripts found.</p>';
+        container.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-16">No scripts found.</p>';
         return;
     }
 
-    // Клонируем массив перед сортировкой
     let displayScripts = [...allFetchedScripts];
 
     if (currentSort === 'views-desc') {
@@ -216,41 +248,42 @@ function renderScripts() {
 
         const isKeyless = item.key === false;
         const keyBadge = isKeyless 
-            ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">KEYLESS</span>`
-            : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">KEY SYSTEM</span>`;
+            ? `<span class="text-[10px] text-green-400 font-bold bg-green-500/10 px-2 py-0.5 rounded-md border border-green-500/20">KEYLESS</span>`
+            : `<span class="text-[10px] text-yellow-400 font-bold bg-yellow-500/10 px-2 py-0.5 rounded-md border border-yellow-500/20">KEY SYSTEM</span>`;
 
         const verifiedBadge = item.verified 
-            ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">VERIFIED</span>` 
+            ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20">VERIFIED</span>` 
             : '';
 
         const gameName = item.game?.name || 'Roblox Game';
         const scriptTitle = item.title || 'Untitled Script';
         const viewsCount = formatViews(item.views);
+        const scriptDesc = getScriptDescription(item);
 
         const card = document.createElement('div');
-        card.className = 'glass flex flex-col justify-between h-full';
+        card.className = 'glass-card flex flex-col justify-between h-full';
         card.innerHTML = `
             <div>
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="${imageUrl}" onerror="handleImageError(this)" class="h-14 w-14 rounded-xl object-cover bg-gray-900 border border-gray-800 shrink-0">
+                <div class="flex items-center gap-3.5 mb-4">
+                    <img src="${imageUrl}" onerror="handleImageError(this)" class="h-12 w-12 rounded-xl object-cover bg-gray-900 border border-gray-800 shrink-0">
                     <div class="overflow-hidden">
-                        <h3 class="text-base font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
+                        <h3 class="text-sm font-bold text-white truncate" title="${scriptTitle}">${scriptTitle}</h3>
                         <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
-                            <span class="text-[10px] text-gray-400 font-bold bg-gray-800/50 px-2 py-0.5 rounded border border-gray-700/50 truncate max-w-[120px]">${gameName}</span>
+                            <span class="text-[10px] text-gray-400 font-semibold bg-gray-800/60 px-2 py-0.5 rounded-md border border-gray-700/50 truncate max-w-[110px]">${gameName}</span>
                             ${keyBadge}
                             ${verifiedBadge}
                         </div>
                     </div>
                 </div>
-                <p class="text-xs text-gray-400 line-clamp-3 mb-6 leading-relaxed">
-                    ${item.features || 'Universal script hub with auto-farm and player enhancements.'}
+                <p class="text-xs text-gray-400/90 line-clamp-3 mb-6 leading-relaxed">
+                    ${scriptDesc}
                 </p>
             </div>
             
             <div>
-                <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2 px-1">
-                    <span>👁 ${viewsCount} views</span>
-                    <span class="text-blue-400/80 font-bold tracking-wider text-[10px] uppercase">RBXHub</span>
+                <div class="flex justify-between items-center text-[11px] text-gray-500 mb-2.5 px-1">
+                    <span class="flex items-center gap-1.5"><span class="text-gray-400">👁</span> ${viewsCount} views</span>
+                    <span class="text-blue-400/90 font-bold tracking-wider text-[10px] uppercase">RBXHub</span>
                 </div>
                 <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" 
                         class="btn-copy">
@@ -262,14 +295,14 @@ function renderScripts() {
     });
 }
 
-// Получение данных
+// Получение данных с API
 async function fetchScripts(query = '', page = 1, append = false) {
     const container = document.getElementById('scripts-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
 
     if (!append) {
         allFetchedScripts = [];
-        container.innerHTML = '<p class="col-span-3 text-center py-12 text-gray-500">Loading scripts...</p>';
+        container.innerHTML = '<p class="col-span-3 text-center py-16 text-gray-500 animate-pulse">Loading scripts...</p>';
     }
 
     let url = `https://scriptblox.com/api/script/fetch?page=${page}`;
@@ -301,12 +334,12 @@ async function fetchScripts(query = '', page = 1, append = false) {
     } catch (error) {
         console.error('Error:', error);
         if (!append) {
-            container.innerHTML = '<p class="text-center text-red-500 col-span-3 py-12">Failed to load scripts.</p>';
+            container.innerHTML = '<p class="text-center text-red-500 col-span-3 py-16">Failed to load scripts.</p>';
         }
     }
 }
 
-// Функция копирования
+// Копирование в буфер
 function copyToClipboard(btnElement, encodedScript) {
     const scriptText = decodeURIComponent(encodedScript);
     navigator.clipboard.writeText(scriptText).then(() => {
@@ -331,7 +364,7 @@ function loadMoreScripts() {
     fetchScripts(currentQuery, currentPage, true);
 }
 
-// Поиск
+// Обработчик Поиска
 document.getElementById('search-input').addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -341,13 +374,13 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     }, 400);
 });
 
-// Слушатель изменения сортировки
+// Обработчик Сортировки
 document.getElementById('sort-select').addEventListener('change', (e) => {
     currentSort = e.target.value;
     renderScripts();
 });
 
-// Автозапуск
+// Инициализация
 fetchScripts();
 </script>
 
