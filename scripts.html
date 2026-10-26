@@ -96,6 +96,31 @@
             box-shadow: 0 0 8px #34d399;
         }
 
+        /* Ссылки на страницы игр */
+        .game-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+        }
+        .game-chips a {
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #cbd5e1;
+            background: #0b0d14;
+            border: 1px solid #161922;
+            border-radius: 999px;
+            padding: 7px 13px;
+            transition: all 0.2s ease;
+        }
+        .game-chips a:hover, .game-chips a.all {
+            color: #ffffff;
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
         /* Панель управления (поиск + фильтры) */
         .controls-wrapper {
             display: flex;
@@ -377,6 +402,7 @@
             <div class="nav-toggle">
                 <a href="/" class="nav-btn-link">Exploits</a>
                 <a href="/scripts.html" class="nav-btn-link active">Scripts</a>
+                <a href="/games/" class="nav-btn-link">Games</a>
             </div>
         </div>
 
@@ -393,6 +419,21 @@
             </div>
         </div>
     </header>
+
+    <!-- Популярные игры -->
+    <nav class="game-chips" aria-label="Popular game scripts">
+        <a href="/games/blox-fruits-script">Blox Fruits</a>
+        <a href="/games/grow-a-garden-script">Grow a Garden</a>
+        <a href="/games/steal-a-brainrot-script">Steal a Brainrot</a>
+        <a href="/games/99-nights-in-the-forest-script">99 Nights in the Forest</a>
+        <a href="/games/rivals-script">Rivals</a>
+        <a href="/games/pet-simulator-99-script">Pet Simulator 99</a>
+        <a href="/games/brookhaven-script">Brookhaven</a>
+        <a href="/games/murder-mystery-2-script">MM2</a>
+        <a href="/games/dead-rails-script">Dead Rails</a>
+        <a href="/games/universal-script">Universal</a>
+        <a href="/games/" class="all">All Games →</a>
+    </nav>
 
     <!-- Панель Поиска, Фильтра и Сортировки -->
     <div class="controls-wrapper">

@@ -241,6 +241,18 @@ h2, h3 { font-family: 'Fredoka', sans-serif !important; font-weight: 700 !import
     pointer-events: none;
 }
 
+/* Ссылки на игры */
+.game-chips a {
+    background: var(--hw-card) !important;
+    border: 2px solid var(--hw-line) !important;
+    font-family: 'Fredoka', sans-serif !important;
+    box-shadow: 0 3px 0 #07030b !important;
+}
+.game-chips a:hover, .game-chips a.all {
+    border-color: var(--hw-orange) !important;
+    color: #fff3e6 !important;
+}
+
 /* ===== Поиск / дропдауны (scripts) ===== */
 .search-input, .dropdown-btn {
     background: var(--hw-card) !important;

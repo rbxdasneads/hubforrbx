@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build:games": "node tools/build-game-pages.mjs"
+  },
   "dependencies": {
     "tailwindcss": "^4.3.3"
   }
