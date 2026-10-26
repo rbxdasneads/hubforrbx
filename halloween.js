@@ -1,5 +1,14 @@
 /* ===== RBXHub — Halloween Event (Roblox style) ===== */
 (function () {
+    // Тема живёт с 1 октября по 2 ноября, в остальное время сайт обычный
+    const now = new Date();
+    const season = now.getMonth() === 9 || (now.getMonth() === 10 && now.getDate() <= 2);
+    if (!season) {
+        const css = document.querySelector('link[href="/halloween.css"]');
+        if (css) css.remove();
+        return;
+    }
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const rand = (min, max) => Math.random() * (max - min) + min;
     const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];

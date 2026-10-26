@@ -390,7 +390,8 @@
         }
     </style>
     <link rel="stylesheet" href="/halloween.css">
-    <script src="/halloween.js" defer></script>
+    <script src="/halloween.js"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body class="p-6 bg-[#050507] text-slate-300 font-[Consolas]">
@@ -432,6 +433,8 @@
         <a href="/games/murder-mystery-2-script">MM2</a>
         <a href="/games/dead-rails-script">Dead Rails</a>
         <a href="/games/universal-script">Universal</a>
+        <a href="/games/trending" class="all">🔥 Trending</a>
+        <a href="/games/favorites">⭐ Favorites</a>
         <a href="/games/" class="all">All Games →</a>
     </nav>
 
@@ -548,6 +551,12 @@ let searchTimeout = null;
 function handleImageError(img) {
     img.onerror = null;
     img.src = '/images/solara.webp';
+}
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 function formatViews(views) {
@@ -706,10 +715,12 @@ function renderScripts() {
             ? `<span class="text-[10px] text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20 shrink-0">VERIFIED</span>` 
             : '';
 
-        const gameName = item.game?.name || 'Roblox Game';
-        const scriptTitle = item.title || 'Untitled Script';
+        // Данные из API экранируем — иначе автор скрипта может вставить HTML/JS в название
+        imageUrl = escapeHtml(imageUrl);
+        const gameName = escapeHtml(item.game?.name || 'Roblox Game');
+        const scriptTitle = escapeHtml(item.title || 'Untitled Script');
         const viewsCount = formatViews(item.views);
-        const scriptDesc = getScriptDescription(item);
+        const scriptDesc = escapeHtml(getScriptDescription(item));
 
         const card = document.createElement('div');
         card.className = 'glass-card flex flex-col justify-between h-full';
