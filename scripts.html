@@ -391,6 +391,8 @@
     </style>
     <link rel="stylesheet" href="/halloween.css">
     <script src="/halloween.js"></script>
+    <link rel="stylesheet" href="/autumn.css">
+    <script src="/autumn.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -445,7 +447,7 @@
             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            <input type="text" id="search-input" placeholder="🎃 Search spooky script or game name..." class="search-input">
+            <input type="text" id="search-input" placeholder="🍁 Search script or game name..." class="search-input">
         </div>
 
         <!-- Фильтр типов (Keyless / Key System) -->
@@ -518,7 +520,7 @@
     <!-- Кнопка Load More -->
     <div class="text-center mb-20">
         <button id="load-more-btn" onclick="loadMoreScripts()" class="btn-load-more" style="display: none;">
-            🍬 Load More Scripts
+            🍂 Load More Scripts
         </button>
     </div>
 
@@ -758,7 +760,7 @@ function renderScripts() {
                     <span style="color: #60a5fa; font-weight: 700; letter-spacing: 0.05em; font-size: 10px; text-transform: uppercase;">RBXHub</span>
                 </div>
                 <button onclick="copyToClipboard(this, \`${encodeURIComponent(item.script || '')}\`)" class="btn-copy">
-                    🎃 Copy Script
+                    Copy Script
                 </button>
             </div>
         `;
@@ -799,7 +801,7 @@ async function fetchScripts(query = '', page = 1, append = false) {
 
         if (scripts.length >= 20) {
             loadMoreBtn.style.display = 'inline-block';
-            loadMoreBtn.innerText = '🍬 Load More Scripts';
+            loadMoreBtn.innerText = '🍂 Load More Scripts';
         } else {
             loadMoreBtn.style.display = 'none';
         }

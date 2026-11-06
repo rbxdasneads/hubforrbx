@@ -1,0 +1,414 @@
+/* ===== RBXHub — Autumn Update (Roblox style) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+:root {
+    --au-bg: #120a06;
+    --au-bg-2: #1c110a;
+    --au-card: #1f130c;
+    --au-card-2: #2a1a10;
+    --au-amber: #f59e0b;
+    --au-amber-2: #fbbf4a;
+    --au-amber-dark: #a35f05;
+    --au-rust: #e8622c;
+    --au-rust-dark: #8f3412;
+    --au-red: #c2410c;
+    --au-olive: #a3b24a;
+    --au-olive-dark: #5b6b1c;
+    --au-text: #f4e6d4;
+    --au-muted: #c4a689;
+    --au-line: rgba(245, 158, 11, 0.2);
+}
+
+html { background: var(--au-bg) !important; }
+
+body {
+    background:
+        radial-gradient(1100px 520px at 80% -10%, rgba(245, 158, 11, 0.18), transparent 60%),
+        radial-gradient(900px 500px at 0% 100%, rgba(194, 65, 12, 0.18), transparent 60%),
+        var(--au-bg) !important;
+    background-attachment: fixed !important;
+    color: var(--au-text) !important;
+    font-family: 'Fredoka', 'Consolas', sans-serif !important;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body > div, body > footer { position: relative; z-index: 2; }
+
+::selection { background: var(--au-amber); color: #1f1100; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--au-bg); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--au-amber), var(--au-rust));
+    border-radius: 10px;
+    border: 3px solid var(--au-bg);
+}
+
+/* ===== Типографика ===== */
+h1, h2, h3, .text-white { color: #fff4e6 !important; }
+h2, h3 { font-family: 'Fredoka', sans-serif !important; font-weight: 700 !important; }
+.text-gray-400, .text-gray-500, .text-gray-600, .text-slate-300, .text-gray-300 { color: var(--au-muted) !important; }
+.text-3xl, .text-4xl, .intro h1 {
+    font-family: 'Fredoka', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    background: linear-gradient(180deg, #ffd27a, var(--au-amber) 55%, var(--au-rust)) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    filter: drop-shadow(0 3px 0 #5a2a08);
+}
+
+/* ===== Шапка ===== */
+.header-nav { border-bottom: 2px dashed var(--au-line) !important; }
+
+.logo-text {
+    font-family: 'Fredoka', sans-serif !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    letter-spacing: 0.02em !important;
+    font-size: 42px !important;
+    color: #fff4e6 !important;
+    text-shadow: 0 4px 0 #4a2208, 0 0 18px rgba(245, 158, 11, 0.35) !important;
+    position: relative;
+    display: inline-block;
+}
+.logo-text span {
+    color: var(--au-amber) !important;
+    filter: none !important;
+    text-shadow: 0 4px 0 var(--au-amber-dark), 0 0 20px rgba(245, 158, 11, 0.5) !important;
+}
+.logo-text::before {
+    content: '🍁';
+    font-size: 0.65em;
+    margin-right: 8px;
+    display: inline-block;
+    animation: au-sway 3s ease-in-out infinite;
+}
+
+.nav-toggle, .lang-switch {
+    background: var(--au-card) !important;
+    border: 2px solid var(--au-line) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 0 #080402 !important;
+}
+.nav-btn, .nav-btn-link, .lang-switch a {
+    color: var(--au-muted) !important;
+    font-family: 'Fredoka', sans-serif !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+}
+.nav-btn.active, .nav-btn-link.active, .nav-btn:hover, .nav-btn-link:hover,
+.lang-switch a.active, .lang-switch a:hover {
+    background: linear-gradient(180deg, var(--au-amber-2), var(--au-amber)) !important;
+    color: #2a1600 !important;
+    border-color: transparent !important;
+    box-shadow: 0 3px 0 var(--au-amber-dark), 0 0 14px rgba(245, 158, 11, 0.35) !important;
+}
+
+.status-badge {
+    color: var(--au-olive) !important;
+    background: rgba(163, 178, 74, 0.1) !important;
+    border: 2px solid rgba(163, 178, 74, 0.35) !important;
+    font-family: 'Fredoka', sans-serif !important;
+    box-shadow: 0 3px 0 rgba(91, 107, 28, 0.6) !important;
+}
+.status-dot {
+    background-color: var(--au-olive) !important;
+    box-shadow: 0 0 10px var(--au-olive) !important;
+}
+
+/* ===== Карточки (Roblox: толстая обводка + нижняя тень) ===== */
+.glass, .glass-card {
+    background: linear-gradient(180deg, var(--au-card-2), var(--au-card)) !important;
+    border: 2px solid var(--au-line) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 6px 0 #080402, inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    position: relative;
+    overflow: hidden;
+}
+.glass::after, .glass-card::after {
+    content: '🍂';
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 18px;
+    opacity: 0.35;
+    transform: rotate(18deg);
+    pointer-events: none;
+}
+/* На карточках скриптов справа сверху звёздочка — листик уводим вниз */
+.glass-card:has(.btn-fav)::after { top: auto; bottom: 8px; }
+.glass:hover, .group:hover .glass, .glass-card:hover {
+    background: linear-gradient(180deg, #3a2213, #26170d) !important;
+    border-color: var(--au-amber) !important;
+    box-shadow: 0 8px 0 var(--au-amber-dark), 0 0 28px rgba(245, 158, 11, 0.2) !important;
+}
+.card-icon, .card-thumb-wrapper {
+    border: 2px solid var(--au-amber) !important;
+    box-shadow: 0 3px 0 var(--au-amber-dark) !important;
+}
+.card-thumb-wrapper { background: var(--au-bg-2) !important; }
+
+/* Бейджи (Tailwind-классы и классы страниц игр) */
+[class*="text-green-400"], .badge-green { color: var(--au-olive) !important; }
+[class*="bg-green-500/10"], .badge-green { background: rgba(163, 178, 74, 0.1) !important; }
+[class*="border-green-500"], .badge-green { border-color: rgba(163, 178, 74, 0.35) !important; }
+[class*="text-blue-400"], .badge-blue { color: var(--au-amber) !important; }
+[class*="bg-blue-500/10"], .badge-blue { background: rgba(245, 158, 11, 0.12) !important; }
+[class*="border-blue-500"], .badge-blue { border-color: rgba(245, 158, 11, 0.4) !important; }
+[class*="bg-blue-400"] { background: var(--au-amber) !important; box-shadow: 0 0 8px var(--au-amber) !important; }
+[class*="text-yellow-400"], .badge-yellow { color: var(--au-rust) !important; }
+[class*="bg-yellow-500/10"], .badge-yellow { background: rgba(232, 98, 44, 0.12) !important; }
+[class*="border-yellow-500"], .badge-yellow { border-color: rgba(232, 98, 44, 0.4) !important; }
+.glass-card span[style*="#60a5fa"], .card-meta a, .intro .stats b, .empty-note a { color: var(--au-amber) !important; }
+.glass-card span[style*="rgba(255,255,255,0.04)"], .badge-gray {
+    background: rgba(245, 158, 11, 0.08) !important;
+    border-color: rgba(245, 158, 11, 0.25) !important;
+    color: #e8cfae !important;
+}
+
+/* ===== Кнопки ===== */
+.btn-banner, .btn-tg, .btn-load-more, .btn-copy {
+    font-family: 'Fredoka', sans-serif !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease !important;
+}
+.btn-banner, .btn-tg, .btn-load-more {
+    background: linear-gradient(180deg, var(--au-amber-2), var(--au-amber)) !important;
+    color: #2a1600 !important;
+    border: 2px solid #ffd58a !important;
+    box-shadow: 0 5px 0 var(--au-amber-dark), 0 0 20px rgba(245, 158, 11, 0.3) !important;
+}
+.btn-banner:hover, .btn-tg:hover, .btn-load-more:hover {
+    background: linear-gradient(180deg, #ffd27a, var(--au-amber-2)) !important;
+    color: #2a1600 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 7px 0 var(--au-amber-dark), 0 0 28px rgba(245, 158, 11, 0.5) !important;
+}
+.btn-banner:active, .btn-tg:active, .btn-load-more:active, .btn-copy:active {
+    transform: translateY(4px) !important;
+    box-shadow: 0 1px 0 var(--au-amber-dark) !important;
+}
+.btn-copy {
+    background: rgba(232, 98, 44, 0.12) !important;
+    color: #f3c9a8 !important;
+    border: 2px solid rgba(232, 98, 44, 0.4) !important;
+    box-shadow: 0 4px 0 var(--au-rust-dark) !important;
+}
+.btn-copy:hover {
+    background: linear-gradient(180deg, #f2875a, var(--au-rust)) !important;
+    color: #fff !important;
+    border-color: #f6a47f !important;
+    box-shadow: 0 4px 0 var(--au-rust-dark), 0 0 16px rgba(232, 98, 44, 0.45) !important;
+}
+.btn-copy.copied {
+    background: linear-gradient(180deg, #c3d16a, var(--au-olive)) !important;
+    color: #1d2400 !important;
+    border-color: #dbe79a !important;
+    box-shadow: 0 4px 0 var(--au-olive-dark) !important;
+}
+.btn-fav {
+    background: var(--au-card) !important;
+    border: 2px solid var(--au-line) !important;
+    color: var(--au-muted) !important;
+    box-shadow: 0 3px 0 #080402 !important;
+}
+.btn-fav:hover, .btn-fav.on {
+    color: var(--au-amber) !important;
+    border-color: var(--au-amber) !important;
+    background: rgba(245, 158, 11, 0.12) !important;
+}
+
+/* ===== Баннер ===== */
+.banner-box {
+    background:
+        radial-gradient(420px 160px at 85% 50%, rgba(245, 158, 11, 0.22), transparent 70%),
+        linear-gradient(135deg, #2a140a 0%, #3b1d0c 50%, #2a140a 100%) !important;
+    border: 2px solid var(--au-amber) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 6px 0 var(--au-amber-dark), 0 0 36px rgba(194, 65, 12, 0.25) !important;
+    position: relative;
+    overflow: hidden;
+}
+.banner-box::before {
+    content: '🍁';
+    position: absolute;
+    left: -8px;
+    top: -12px;
+    font-size: 56px;
+    opacity: 0.3;
+    transform: rotate(-20deg);
+    pointer-events: none;
+}
+
+/* Ссылки на игры, чипы, FAQ, код */
+.game-chips a, .chip {
+    background: var(--au-card) !important;
+    border: 2px solid var(--au-line) !important;
+    font-family: 'Fredoka', sans-serif !important;
+    box-shadow: 0 3px 0 #080402 !important;
+    color: var(--au-text) !important;
+}
+.game-chips a:hover, .game-chips a.all, .chip:hover {
+    border-color: var(--au-amber) !important;
+    color: #fff4e6 !important;
+}
+.faq details, .code {
+    background: var(--au-card) !important;
+    border: 2px solid var(--au-line) !important;
+}
+.code { color: #f3d3a4 !important; }
+
+/* ===== Поиск / дропдауны (scripts) ===== */
+.search-input, .dropdown-btn {
+    background: var(--au-card) !important;
+    border: 2px solid var(--au-line) !important;
+    font-family: 'Fredoka', sans-serif !important;
+    box-shadow: 0 4px 0 #080402 !important;
+}
+.search-input:focus, .dropdown-btn:hover {
+    border-color: var(--au-amber) !important;
+    box-shadow: 0 4px 0 var(--au-amber-dark), 0 0 16px rgba(245, 158, 11, 0.2) !important;
+}
+.search-icon { color: var(--au-amber) !important; }
+.dropdown-menu {
+    background: #24160d !important;
+    border: 2px solid var(--au-line) !important;
+    font-family: 'Fredoka', sans-serif !important;
+}
+.dropdown-option:hover, .dropdown-option.active-option {
+    background: rgba(245, 158, 11, 0.14) !important;
+    color: #fff4e6 !important;
+}
+.skeleton {
+    background: var(--au-card) !important;
+    border: 2px solid var(--au-line) !important;
+}
+.skeleton-line { background: #3a2415 !important; }
+
+#back-to-top {
+    background: linear-gradient(180deg, var(--au-amber-2), var(--au-amber)) !important;
+    border: 2px solid #ffd58a !important;
+    color: #2a1600 !important;
+    box-shadow: 0 4px 0 var(--au-amber-dark) !important;
+    border-radius: 50% !important;
+}
+
+/* ===== Прочие блоки ===== */
+.bg-gray-900 {
+    background: var(--au-card) !important;
+    border: 2px dashed var(--au-line) !important;
+}
+.border-gray-800, [class*="border-gray-800"], .border-\[\#222\] { border-color: var(--au-line) !important; }
+ul.list-disc { list-style: none !important; padding-left: 4px !important; }
+ul.list-disc li::before { content: '🍂 '; }
+
+footer, .site-footer { border-top: 2px dashed var(--au-line) !important; }
+footer a:hover { color: var(--au-amber) !important; }
+
+/* ===== Декор (вставляется autumn.js) ===== */
+#au-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+#au-layer .au-sun {
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 196, 92, 0.22), rgba(245, 158, 11, 0.08) 45%, transparent 70%);
+}
+#au-layer .au-hills {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 160px;
+    opacity: 0.55;
+    background:
+        radial-gradient(60% 120% at 20% 100%, #3a1c0b 60%, transparent 61%),
+        radial-gradient(55% 110% at 75% 100%, #2c1508 60%, transparent 61%),
+        radial-gradient(40% 90% at 50% 100%, #24120a 60%, transparent 61%);
+}
+#au-layer .au-leaf {
+    position: absolute;
+    top: -40px;
+    animation: au-fall linear forwards;
+    will-change: transform;
+}
+#au-layer .au-leaf > span {
+    display: inline-block;
+    animation: au-flutter ease-in-out infinite alternate;
+}
+
+/* Roblox-style ивент баннер */
+#au-event {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, #7c2d12, #d97706, #b45309, #7c2d12);
+    background-size: 200% 100%;
+    animation: au-shine 8s linear infinite;
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+    border-bottom: 3px solid #2a1206;
+}
+#au-event b { font-size: 18px; letter-spacing: 0.06em; }
+#au-event .au-timer {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+    padding: 2px 10px;
+    font-variant-numeric: tabular-nums;
+}
+
+.au-pop {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    font-size: 22px;
+    animation: au-pop 0.9s ease-out forwards;
+}
+
+/* ===== Анимации ===== */
+@keyframes au-sway { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+@keyframes au-shine { from { background-position: 0% 0; } to { background-position: 200% 0; } }
+@keyframes au-fall {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(var(--dx, 60px), 112vh); }
+}
+@keyframes au-flutter {
+    0% { transform: rotate(var(--r0, -30deg)) translateX(-12px); }
+    100% { transform: rotate(var(--r1, 40deg)) translateX(12px); }
+}
+@keyframes au-pop {
+    0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .logo-text { font-size: 34px !important; }
+    #au-layer .au-sun { width: 260px; height: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+    #au-layer .au-leaf { display: none; }
+}

@@ -138,12 +138,6 @@ const about = (g, L) => g['about_' + L.code] || g.about;
 const gameUrl = (L, slug) => `${SITE}${L.prefix}/games/${slug}-script`;
 const keylessCount = (list) => list.filter((s) => s.key === false).length;
 
-// Хеллоуинская тема включается сама с 1 октября по 2 ноября
-function isHalloween(d = NOW) {
-    const m = d.getUTCMonth(), day = d.getUTCDate();
-    return m === 9 || (m === 10 && day <= 2);
-}
-
 function formatNum(n) {
     n = Number(n) || 0;
     if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
@@ -201,9 +195,9 @@ function imageOf(item) {
 
 // ===== Общие куски HTML =====
 function head({ L, title, description, canonical, alternates, ogImage, jsonLd = [], noindex = false }) {
-    const hw = isHalloween()
-        ? '\n    <link rel="stylesheet" href="/halloween.css">\n    <script src="/halloween.js"></script>'
-        : '';
+    // Сезонные темы подключены всегда — каждая сама выключается вне своего сезона
+    const hw = '\n    <link rel="stylesheet" href="/halloween.css">\n    <script src="/halloween.js"></script>' +
+        '\n    <link rel="stylesheet" href="/autumn.css">\n    <script src="/autumn.js"></script>';
     const alt = alternates
         ? '\n    ' + [...alternates.map(([code, url]) => `<link rel="alternate" hreflang="${code}" href="${url}">`),
             `<link rel="alternate" hreflang="x-default" href="${alternates.find(([c]) => c === 'en')[1]}">`].join('\n    ')
