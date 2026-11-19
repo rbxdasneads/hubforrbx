@@ -1,11 +1,8 @@
 /* ===== RBXHub — Autumn (мягкая тёплая тема) ===== */
 (function () {
-    // Осень: сентябрь – ноябрь, кроме хеллоуинского окна (1 окт – 2 нояб), его держит halloween.js
+    // Какая тема активна, решает season.js (по дате или превью)
     const now = new Date();
-    const m = now.getMonth(), d = now.getDate();
-    const halloween = m === 9 || (m === 10 && d <= 2);
-    const season = (m >= 8 && m <= 10) && !halloween;
-    if (!season) {
+    if (window.RBX_SEASON !== 'autumn') {
         const css = document.querySelector('link[href="/autumn.css"]');
         if (css) css.remove();
         return;

@@ -1,9 +1,7 @@
 /* ===== RBXHub — Halloween Event (Roblox style) ===== */
 (function () {
-    // Тема живёт с 1 октября по 2 ноября, в остальное время сайт обычный
-    const now = new Date();
-    const season = now.getMonth() === 9 || (now.getMonth() === 10 && now.getDate() <= 2);
-    if (!season) {
+    // Какая тема активна, решает season.js (по дате или превью)
+    if (window.RBX_SEASON !== 'halloween') {
         const css = document.querySelector('link[href="/halloween.css"]');
         if (css) css.remove();
         return;

@@ -195,9 +195,11 @@ function imageOf(item) {
 
 // ===== Общие куски HTML =====
 function head({ L, title, description, canonical, alternates, ogImage, jsonLd = [], noindex = false }) {
-    // Сезонные темы подключены всегда — каждая сама выключается вне своего сезона
-    const hw = '\n    <link rel="stylesheet" href="/halloween.css">\n    <script src="/halloween.js"></script>' +
-        '\n    <link rel="stylesheet" href="/autumn.css">\n    <script src="/autumn.js"></script>';
+    // Сезонные темы подключены всегда — season.js выбирает активную, остальные выключаются сами
+    const hw = '\n    <script src="/season.js"></script>' +
+        '\n    <link rel="stylesheet" href="/halloween.css">\n    <script src="/halloween.js"></script>' +
+        '\n    <link rel="stylesheet" href="/autumn.css">\n    <script src="/autumn.js"></script>' +
+        '\n    <link rel="stylesheet" href="/winter.css">\n    <script src="/winter.js"></script>';
     const alt = alternates
         ? '\n    ' + [...alternates.map(([code, url]) => `<link rel="alternate" hreflang="${code}" href="${url}">`),
             `<link rel="alternate" hreflang="x-default" href="${alternates.find(([c]) => c === 'en')[1]}">`].join('\n    ')
