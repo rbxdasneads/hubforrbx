@@ -326,3 +326,84 @@ footer a:hover { color: var(--wi-ice) !important; }
     #wi-layer { display: none; }
     .glass:hover, .glass-card:hover { transform: none !important; }
 }
+
+/* ===== Новогоднее настроение (1 дек – 10 янв, winter.js ставит html.wi-festive) ===== */
+:root {
+    --wi-gold: #f1d8a2;
+    --wi-gold-soft: rgba(241, 216, 162, 0.14);
+}
+html.wi-festive .logo-text span { color: var(--wi-gold) !important; }
+html.wi-festive #wi-event b { color: var(--wi-gold); }
+html.wi-festive #wi-event .wi-timer { color: var(--wi-ice); }
+
+/* Гирлянда под плашкой: тонкий провод и мерцающие лампочки */
+#wi-garland {
+    position: relative;
+    z-index: 4;
+    height: 34px;
+    margin-top: -16px;
+    margin-bottom: 6px;
+    pointer-events: none;
+    overflow: hidden;
+}
+#wi-garland svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+#wi-garland .wi-bulb {
+    position: absolute;
+    width: 7px;
+    height: 10px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform: translate(-50%, 0);
+    animation: wi-twinkle 3.2s ease-in-out infinite;
+}
+#wi-garland .wi-bulb::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    width: 4px;
+    height: 3px;
+    transform: translateX(-50%);
+    border-radius: 1px;
+    background: #4a5466;
+}
+
+/* Редкие золотые искорки на фоне */
+#wi-layer .wi-spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--wi-gold);
+    box-shadow: 0 0 6px 1px rgba(241, 216, 162, 0.6);
+    opacity: 0;
+    animation: wi-spark 4s ease-in-out forwards;
+}
+
+/* Тихий салют: разлетающиеся мягкие точки */
+.wi-burst {
+    position: fixed;
+    z-index: 9999;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: wi-burst 1.8s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+@keyframes wi-twinkle {
+    0%, 100% { opacity: 0.55; filter: brightness(0.9); }
+    50% { opacity: 1; filter: brightness(1.15); }
+}
+@keyframes wi-spark {
+    0% { opacity: 0; transform: scale(0.4); }
+    40% { opacity: 0.9; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.6); }
+}
+@keyframes wi-burst {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0.4); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #wi-garland .wi-bulb { animation: none; opacity: 0.85; }
+}
